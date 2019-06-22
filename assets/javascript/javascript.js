@@ -1,6 +1,4 @@
 //$(document).ready(function(){
-
-//var youtubeAPIKey = AIzaSyC6sAc1Rkq7nUSRyGN3XmPC4UZjiLITs64;
 var a =["alligator", "armadillo", "anaconda", "ardvark"];
 var b =["baboon", "badger", "bat", "buffalo"];
 var c =["cat", "camel", "cheetah"];
@@ -28,7 +26,7 @@ var alphabet = [a,b,c,d,e,f,g];
 // var x =[];
 // var y =[];
 // var z =[];
-
+var random;
 
 //});
 $("body").on("click", ".btn", function(){
@@ -38,14 +36,21 @@ $("body").on("click", ".btn", function(){
 
     for(var i=0; i<alphabet.length;i++){
         if(userClick === alphabet[i][0].charAt(0)){
-            $("#randomword").html("<h3>" + alphabet[i] +"</h3>");
+            
+            var currentWord = alphabet[i];
+            random = currentWord[Math.floor(Math.random() * currentWord.length)];
+            $("#randomword").html("<h3>" + random +"</h3>");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+    
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                console.log(response.data);
+        
+            });
         };
 
-    }
-    //console.log(alphabet[0][0].charAt(0));
-
-    randomWord();
+    };
 });
-function randomWord(){
 
-}
