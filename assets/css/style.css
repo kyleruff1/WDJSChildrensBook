@@ -1,8 +1,26 @@
 .row {
     height: 960px;
+    margin-top: 0%;
 
 }
 
 .col {
     height: 100%;
+}
+
+.jumbotron {
+    margin: 0%;
+    text-align: center;
+}
+.btn-toolbar {
+    width: 100%;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+}
+.container {
+    text-align: center;
+    width: 100%;
+
 }
