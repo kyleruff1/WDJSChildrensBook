@@ -27,13 +27,19 @@ var alphabet = [a,b,c,d,e,f,g];
 // var y =[];
 // var z =[];
 var random;
+var randomArray;
+var generated;
+var randomtext;
 
 //});
 $("body").on("click", ".btn", function(){
+    if($(this).attr("id")=== "randomletter"){
+        randomLetterClick();
+    }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
 
-
+    };
     for(var i=0; i<alphabet.length;i++){
         if(userClick === alphabet[i][0].charAt(0)){
             
@@ -50,7 +56,17 @@ $("body").on("click", ".btn", function(){
         
             });
         };
+    };
 
+
+    function randomLetterClick(){
+        randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
+        generated = randomArray[0].charAt(0).toUpperCase();
+        console.log(generated);
+        $("#bigletter").html("<h1>" + generated +"</h1>");
+
+        randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
+        console.log(randomtext);
+        $("#randomword").html("<h3>" + randomtext +"</h3>");
     };
 });
-
