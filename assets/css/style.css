@@ -4,13 +4,8 @@
 
 }
 
-.container1 {
+.col {
     height: 100%;
-    background-color: salmon;
-}
-.container2 {
-    height: 100%;
-    background-color: coral;
 }
 
 .jumbotron {
@@ -19,8 +14,8 @@
 }
 .btn-toolbar {
     width: 100%;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 15%;
+    padding-right: 15%;
     height: 300px;
 }
 
@@ -30,42 +25,16 @@
     width: 100%;
 
 }
-.btn-flat   {
-    font-size: 20px;
+.btn-default:hover {
+    font-size: 700%;
 
 }
-.btn-flat:hover {
-    font-size: 400%;
-
-}
-
-#randomletter:hover   {
-    font-size: 70px;
-
+.display-3  {
+    margin-bottom: -50px;
 
 }
 
-.row    {
-    height: 960px;
-    background-color: salmon;
-}
-.container-lg   {
-    size: 100%;
-}
-.wordside {
-    height: 100%;
-    width: auto;
-}
-.playerside {
-    height: 100%;
-    width: auto;
-    color: black;
-}
-
-#bigletter {
-    font-size: 200px;
-
-}
-#randomword {
-    font-size: 200px;
+img{
+    width: 100%;
+    height: auto;
 }
