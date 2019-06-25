@@ -46,7 +46,7 @@ $("body").on("click", ".btn", function(){
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#randomword").html("<h3>" + random +"</h3>");
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
     
             $.ajax({
                 url: queryURL,
@@ -68,5 +68,17 @@ $("body").on("click", ".btn", function(){
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         console.log(randomtext);
         $("#randomword").html("<h3>" + randomtext +"</h3>");
+
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
+    
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response.data);
+            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+        });
+
+
     };
 });
