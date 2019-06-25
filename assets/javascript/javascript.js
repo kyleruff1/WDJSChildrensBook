@@ -47,7 +47,7 @@ $("body").on("click", ".btn", function(){
                 method: "GET"
             }).then(function(response){
                 console.log(response.data);
-        
+                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
             });
         };
 
