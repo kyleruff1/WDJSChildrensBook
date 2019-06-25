@@ -35,6 +35,15 @@ var randomtext;
 $("body").on("click", ".btn", function(){
     if($(this).attr("id")=== "randomletter"){
         randomLetterClick();
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response.data);
+            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+        });
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
