@@ -35,6 +35,15 @@ var randomtext;
 $("body").on("click", ".btn", function(){
     if($(this).attr("id")=== "randomletter"){
         randomLetterClick();
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response.data);
+            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+        });
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
@@ -70,3 +79,58 @@ $("body").on("click", ".btn", function(){
         $("#randomword").html("<h3>" + randomtext +"</h3>");
     };
 });
+
+// youtube api key = AIzaSyBYFrpVJlSShJgHVOCjDF2-NUE-VuoEOjk
+
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+apiKey: "AIzaSyBmuHrb-UJHbNvtig-TS0Gtr8EvtRC4ZMk",
+authDomain: "wdjs-project1.firebaseapp.com",
+databaseURL: "https://wdjs-project1.firebaseio.com",
+projectId: "wdjs-project1",
+storageBucket: "wdjs-project1.appspot.com",
+messagingSenderId: "541094236058",
+appId: "1:541094236058:web:850edb60659e4742"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(function(user) {
+if (user) {
+    // $("#hidden").css("display", "block");
+    // $("#login").css("display", "none");
+    $("#hidden").attr("class", "d-block")
+    $("#login").attr("class", "container d-none")
+    // $("#login").hide();
+    // $("#hidden").show();
+    var user = firebase.auth().currentUser;
+} else {
+    // $("#hidden").css("display", "none");
+    // $("#login").css("display", "block");
+    $("#hidden").attr("class", "d-none")
+    $("#login").attr("class", "container d-block")
+    // $("#login").show();
+    // $("#hidden").hide();
+}
+});
+
+
+
+function login(){
+    var userEmail = $("#email-login").val();
+    var userPass = $("#password-login").val();
+console.log(userEmail);
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+    $(".form-group").append("<p>" + errorMessage + "</p>")
+    // ...
+    });
+  }
+
+  function logOut(){
+    firebase.auth().signOut();
+  }
