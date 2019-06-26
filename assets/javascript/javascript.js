@@ -98,6 +98,7 @@ firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
+<<<<<<< HEAD
 
     $("#hidden").attr("class", "d-block")
     $("#login").attr("class", "container d-none")
@@ -105,6 +106,22 @@ if (user) {
 } else {
     $("#hidden").attr("class", "d-none")
     $("#login").attr("class", "container d-block")
+=======
+    // $("#hidden").css("display", "block");
+    // $("#login").css("display", "none");
+    $("#hidden").attr("class", "d-block")
+    $("#login").attr("class", "container d-none")
+    // $("#login").hide();
+    // $("#hidden").show();
+    var user = firebase.auth().currentUser;
+} else {
+    // $("#hidden").css("display", "none");
+    // $("#login").css("display", "block");
+    $("#hidden").attr("class", "d-none")
+    $("#login").attr("class", "container d-block")
+    // $("#login").show();
+    // $("#hidden").hide();
+>>>>>>> cf9b56a97c3fe50e784242bac81260fab50557e2
 }
 });
 
@@ -113,11 +130,16 @@ if (user) {
 function login(){
     var userEmail = $("#email-login").val();
     var userPass = $("#password-login").val();
+<<<<<<< HEAD
+=======
+console.log(userEmail);
+>>>>>>> cf9b56a97c3fe50e784242bac81260fab50557e2
     firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
 
+<<<<<<< HEAD
     $(".error-message").text(errorMessage)
     });
   }
@@ -136,3 +158,13 @@ function signUp(){
     });
 }
 
+=======
+    $(".form-group").append("<p>" + errorMessage + "</p>")
+    // ...
+    });
+  }
+
+  function logOut(){
+    firebase.auth().signOut();
+  }
+>>>>>>> cf9b56a97c3fe50e784242bac81260fab50557e2
