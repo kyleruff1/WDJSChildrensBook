@@ -15,70 +15,91 @@
 </head>
 
 <body>
-    <div class="jumbotron">
-        <h1 class="display-3 font-weight-bold">Learn the Alphabet</h1>
-        <div class="container">
-            <div class="btn-toolbar">
-                <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default" id="a">A</button>
-                    <button class="btn btn-default" id="b">B</button>
-                    <button class="btn btn-default" id="c">C</button>
-                    <button class="btn btn-default" id="d">D</button>
-                    <button class="btn btn-default" id="e">E</button>
-                    <button class="btn btn-default" id="f">F</button>
-                    <button class="btn btn-default" id="g">G</button>
-                    <button class="btn btn-default" id="h">H</button>
-                    <button class="btn btn-default" id="i">I</button>
-                    <button class="btn btn-default" id="j">J</button>
-                    <button class="btn btn-default" id="k">K</button>
-                    <button class="btn btn-default" id="l">L</button>
-                    <button class="btn btn-default" id="m">M</button>
-                    <button class="btn btn-default" id="n">N</button>
-                    <button class="btn btn-default" id="o">O</button>
-                    <button class="btn btn-default" id="p">P</button>
-                    <button class="btn btn-default" id="q">Q</button>
-                    <button class="btn btn-default" id="r">R</button>
-                    <button class="btn btn-default" id="s">S</button>
-                    <button class="btn btn-default" id="t">T</button>
-                    <button class="btn btn-default" id="u">U</button>
-                    <button class="btn btn-default" id="v">V</button>
-                    <button class="btn btn-default" id="w">W</button>
-                    <button class="btn btn-default" id="x">X</button>
-                    <button class="btn btn-default" id="y">Y</button>
-                    <button class="btn btn-default" id="z">Z</button>
-                    <button class="btn btn-default" id="randomletter">Random</button>
-                </div>
-            </div>
+    <div class="container d-none" id="login">
+        <div class="form-group">
+        <label for="">Email</label>
+        <input type="email" class="form-control col-3" id="email-login" placeholder="email">
+        <label for="">Password</label>
+        <input type="password" class="form-control col-3"  id="password-login" placeholder="password">
+        <button onclick="login()" class="btn btn-primary" role="button">Login</button>
+        <button onclick="signUp()" class="btn btn-primary" role="button">Sign Up</button>
+        <p class="error-message"></p>
         </div>
-        </p>
     </div>
 
-        <div class="row">
-            <div class="col-lg-6" style="background-color:salmon;">
-                <div class="playerside">
-                    <div id="player">
 
-                    </div>
-                    <div id="videodesc">
 
+    <div id="hidden" class="d-none">
+        <button onclick="logOut()">Logout</button>
+        <div class="jumbotron">
+            <h1 class="display-3 font-weight-bold">Learn the Alphabet</h1>
+            <div class="container">
+                <div class="btn-toolbar">
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-default" id="a">A</button>
+                        <button class="btn btn-default" id="b">B</button>
+                        <button class="btn btn-default" id="c">C</button>
+                        <button class="btn btn-default" id="d">D</button>
+                        <button class="btn btn-default" id="e">E</button>
+                        <button class="btn btn-default" id="f">F</button>
+                        <button class="btn btn-default" id="g">G</button>
+                        <button class="btn btn-default" id="h">H</button>
+                        <button class="btn btn-default" id="i">I</button>
+                        <button class="btn btn-default" id="j">J</button>
+                        <button class="btn btn-default" id="k">K</button>
+                        <button class="btn btn-default" id="l">L</button>
+                        <button class="btn btn-default" id="m">M</button>
+                        <button class="btn btn-default" id="n">N</button>
+                        <button class="btn btn-default" id="o">O</button>
+                        <button class="btn btn-default" id="p">P</button>
+                        <button class="btn btn-default" id="q">Q</button>
+                        <button class="btn btn-default" id="r">R</button>
+                        <button class="btn btn-default" id="s">S</button>
+                        <button class="btn btn-default" id="t">T</button>
+                        <button class="btn btn-default" id="u">U</button>
+                        <button class="btn btn-default" id="v">V</button>
+                        <button class="btn btn-default" id="w">W</button>
+                        <button class="btn btn-default" id="x">X</button>
+                        <button class="btn btn-default" id="y">Y</button>
+                        <button class="btn btn-default" id="z">Z</button>
+                        <button class="btn btn-default" id="randomletter">Random</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6" style="background-color:pink;">
-                    <div class="wordside">
-                        <div id="bigletter">
-                        </div>
-                        <div id="randomword">
-                        </div>
+            </p>
+        </div>
 
+            <div class="row">
+                <div class="col-lg-6" style="background-color:salmon;">
+                    <div class="playerside">
+                        <div id="player">
 
+                        </div>
+                        <div id="videodesc">
+
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-lg-6" style="background-color:pink;">
+                        <div class="wordside">
+                            <div id="bigletter">
+                            </div>
+                            <div id="randomword">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+    </div>
+
 
 
 
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-database-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-auth.js"></script>
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
