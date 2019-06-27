@@ -17,6 +17,7 @@
     background-size: 79%;
     color: coral;
     text-shadow: 2px 2px white;
+    font-family: aclonica, sans-serif;
 }
 .btn-toolbar {
     width: 100%;
@@ -39,7 +40,7 @@
 
 }
 .display-3  {
-    margin-bottom: -50px;
+    margin-bottom: -100px;
 
 }
 
