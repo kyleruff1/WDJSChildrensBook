@@ -47,6 +47,11 @@ $("body").on("click", ".btn", function(){
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
+    
+    var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
+                       <input type="text" class="form-control">
+                       <button>Go!</button>`;
+   $('#user-input-div').html(inputDiv);
 
     };
     for(var i=0; i<alphabet.length;i++){
@@ -149,7 +154,7 @@ function signUp(){
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        $(".error-message").html(errorMessage)
+        $(".error-message").html(errormessage)
     });
 }
 
