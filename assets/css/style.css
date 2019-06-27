@@ -1,6 +1,7 @@
 .row {
-    height: 960px;
-    margin-top: 0%;
+    margin: auto;
+    width: 70%;
+    padding: 10px;
 
 }
 
@@ -11,12 +12,19 @@
 .jumbotron {
     margin: 0%;
     text-align: center;
+    background-image: url(../images/jacksons.jpg);
+    background-position: top;
+    background-size: 79%;
+    color: coral;
+    text-shadow: 2px 2px white;
 }
 .btn-toolbar {
     width: 100%;
     padding-left: 15%;
     padding-right: 15%;
     height: 300px;
+    text-shadow: 2px 2px white;
+    color: white;
 }
 
 }
@@ -25,8 +33,9 @@
     width: 100%;
 
 }
-.btn-default:hover {
+.btn-default:hover,.btn-default {
     font-size: 700%;
+    text-shadow: 2px 2px white;
 
 }
 .display-3  {
@@ -48,4 +57,8 @@ h1{
 img  {
     width: 100%;
     height: auto;
+}
+body{ 
+    background-image: linear-gradient(coral, black,coral);
+    background-size: 200%;
 }
