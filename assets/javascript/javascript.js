@@ -6,26 +6,26 @@ var d =["deer", "dog", "donkey", "dolphin"];
 var e =["elephant", "eagle", "emu"];
 var f =["fox", "flamingo", "ferret"];
 var g =["gecko", "gerbil", "giraffe"];
-var alphabet = [a,b,c,d,e,f,g];
-// var h =[];
-// var i =[];
-// var j =[];
-// var k =[];
-// var l =[];
-// var m =[];
-// var n =[];
-// var o =[];
-// var p =[];
-// var q =[];
-// var r =[];
-// var s =[];
-// var t =[];
-// var u =[];
-// var v =[];
-// var w =[];
-// var x =[];
-// var y =[];
-// var z =[];
+var h =["hedgehog", "horse", "hyena"];
+var i =["iguana", "insect"];
+var j =["jellyfish", "jaguar"];
+var k =["kangaroo"];
+var l =["lion", "lizard", "llama"];
+var m =["monkey", "moose", "mouse"];
+var n =["newt"];
+var o =["otter", "octopus", "orangutan"];
+var p =["parrot", "pig", "poodle"];
+var q =["quail"];
+var r =["rabbit", "raccoon", "rat"];
+var s =["seal", "scorpion", "skunk"];
+var t =["tortoise", "tiger"];
+var u =["unicorn"];
+var v =["vulture"];
+var w =["walrus", "weasel"];
+var x =["NOTHING"];
+var y =["yak"];
+var z =["zebra"];
+var alphabet = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z];
 var random;
 var randomArray;
 var generated;
@@ -47,6 +47,11 @@ $("body").on("click", ".btn", function(){
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
+    
+    var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
+                       <input type="text" class="form-control">
+                       <button>Go!</button>`;
+   $('#user-input-div').html(inputDiv);
 
     };
     for(var i=0; i<alphabet.length;i++){
@@ -132,7 +137,7 @@ function signUp(){
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        $(".error-message").html(errorMessage)
+        $(".error-message").html(errormessage)
     });
 }
 
