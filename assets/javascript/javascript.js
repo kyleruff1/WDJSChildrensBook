@@ -41,7 +41,6 @@ $("body").on("click", ".btn", function(){
             url: queryURL,
             method: "GET"
         }).then(function(response){
-            console.log(response.data);
             $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
         });
     }else{
@@ -49,9 +48,19 @@ $("body").on("click", ".btn", function(){
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
     
     var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
-                       <input type="text" class="form-control">
-                       <button>Go!</button>`;
-   $('#user-input-div').html(inputDiv);
+                       <input type="text" class="form-control" id="user-word">
+                       <button id="submit">Go!</button>`;
+    $('#user-input-div').html(inputDiv);
+
+    $("#submit").on("click", function(event){
+        event.preventDefault();
+        var userInput = $("#user-word").val();
+        if(userInput.charAt(0) === userClick){
+            alert("YOU ROCK");
+        }else{
+            alert("try agagin");
+        };
+    });
 
     };
     for(var i=0; i<alphabet.length;i++){
@@ -76,11 +85,9 @@ $("body").on("click", ".btn", function(){
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
         generated = randomArray[0].charAt(0).toUpperCase();
-        console.log(generated);
         $("#bigletter").html("<h1>" + generated +"</h1>");
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
-        console.log(randomtext);
         $("#randomword").html("<h3>" + randomtext +"</h3>");
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1&rating=g";
@@ -89,7 +96,6 @@ $("body").on("click", ".btn", function(){
             url: queryURL,
             method: "GET"
         }).then(function(response){
-            console.log(response.data);
             $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
 
             apikey = "01c631d7-9638-42b7-adbe-8337d0e10bd4"
