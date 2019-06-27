@@ -61,9 +61,12 @@ img  {
 }
 body{ 
     background-image: linear-gradient(coral, black,coral);
-    background-size: 200%;
     height: 960px;
 }
 .wordside {
     height: auto;
+}
+#logoutbtn {
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
 }
