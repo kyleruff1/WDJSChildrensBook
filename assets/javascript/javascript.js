@@ -41,7 +41,6 @@ $("body").on("click", ".btn", function(){
             url: queryURL,
             method: "GET"
         }).then(function(response){
-            console.log(response.data);
             $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
         });
         var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ randomtext +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
@@ -49,14 +48,14 @@ $("body").on("click", ".btn", function(){
             url: dictionaryURL,
             method: "GET"
         }).then(function(response){
-            console.log(response);
+            $("#pronunciation").text(response[0].hwi.prs[0].mw);
         });
         
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
     
-    var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
+    var inputDiv = `<h5>Write a word that starts with ${userClick}</h5>
                        <input type="text" class="form-control" id='user-word'>
                        <button id='submit'>Go!</button>`;
    $('#user-input-div').html(inputDiv);
@@ -99,12 +98,11 @@ $("body").on("click", ".btn", function(){
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
         generated = randomArray[0].charAt(0).toUpperCase();
-        console.log(generated);
         $("#bigletter").html("<h1>" + generated +"</h1>");
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
-        console.log(randomtext);
         $("#randomword").html("<h3>" + randomtext +"</h3>");
+
         
         var inputDiv = `<h5>Write a letter that starts with ${generated}</h5>
         <input type="text" class="form-control" id='user-word'>
