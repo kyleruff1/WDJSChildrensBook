@@ -57,10 +57,18 @@ $("body").on("click", ".btn", function(){
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
     
     var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
-                       <input type="text" class="form-control">
-                       <button>Go!</button>`;
+                       <input type="text" class="form-control" id='user-word'>
+                       <button id='submit'>Go!</button>`;
    $('#user-input-div').html(inputDiv);
-
+   $("#submit").on("click", function(event){
+    event.preventDefault();
+    var userInput = $("#user-word").val();
+    if(userInput.charAt(0) === userClick){
+        alert("YOU ROCK");
+    }else{
+        alert("try agagin");
+    };
+});
     };
     for(var i=0; i<alphabet.length;i++){
         if(userClick === alphabet[i][0].charAt(0)){
