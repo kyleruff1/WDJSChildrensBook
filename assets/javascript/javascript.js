@@ -105,6 +105,21 @@ $("body").on("click", ".btn", function(){
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         console.log(randomtext);
         $("#randomword").html("<h3>" + randomtext +"</h3>");
+        
+        var inputDiv = `<h5>Write a letter that starts with ${generated}</h5>
+        <input type="text" class="form-control" id='user-word'>
+        <button id='submit'>Go!</button>`;
+        $('#user-input-div').html(inputDiv);
+        $("#submit").on("click", function(event){
+        event.preventDefault();
+        var userInput = $("#user-word").val();
+        if(userInput.charAt(0) === userClick){
+        alert("YOU ROCK");
+        }else{
+        alert("try agagin");
+        };
+        });
+        
     };
 });
 
