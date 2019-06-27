@@ -33,8 +33,8 @@ var randomtext;
 
 //});
 $("body").on("click", ".btn", function(){
+    randomLetterClick();
     if($(this).attr("id")=== "randomletter"){
-        randomLetterClick();
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
 
         $.ajax({
@@ -43,25 +43,31 @@ $("body").on("click", ".btn", function(){
         }).then(function(response){
             $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
         });
+        var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ randomtext +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+        $.ajax({
+            url: dictionaryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+        });
+        
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
     
     var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
-                       <input type="text" class="form-control" id="user-word">
-                       <button id="submit">Go!</button>`;
-    $('#user-input-div').html(inputDiv);
-
-    $("#submit").on("click", function(event){
-        event.preventDefault();
-        var userInput = $("#user-word").val();
-        if(userInput.charAt(0) === userClick){
-            alert("YOU ROCK");
-        }else{
-            alert("try agagin");
-        };
-    });
-
+                       <input type="text" class="form-control" id='user-word'>
+                       <button id='submit'>Go!</button>`;
+   $('#user-input-div').html(inputDiv);
+   $("#submit").on("click", function(event){
+    event.preventDefault();
+    var userInput = $("#user-word").val();
+    if(userInput.charAt(0) === userClick){
+        alert("YOU ROCK");
+    }else{
+        alert("try agagin");
+    };
+});
     };
     for(var i=0; i<alphabet.length;i++){
         if(userClick === alphabet[i][0].charAt(0)){
@@ -69,7 +75,7 @@ $("body").on("click", ".btn", function(){
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#randomword").html("<h3>" + random +"</h3>");
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
     
             $.ajax({
                 url: queryURL,
@@ -77,6 +83,13 @@ $("body").on("click", ".btn", function(){
             }).then(function(response){
                 console.log(response.data);
                 $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ random +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                $.ajax({
+                    url: dictionaryURL,
+                    method: "GET"
+                }).then(function(response){
+                    console.log(response);
+                });
             });
         };
     };
@@ -90,21 +103,21 @@ $("body").on("click", ".btn", function(){
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         $("#randomword").html("<h3>" + randomtext +"</h3>");
 
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1&rating=g";
-    
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(response){
-            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
-
-            apikey = "01c631d7-9638-42b7-adbe-8337d0e10bd4"
-            var dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/sd2/json/school?key=01c631d7-9638-42b7-adbe-8337d0e10bd4"
-
-
+        
+        var inputDiv = `<h5>Write a letter that starts with ${generated}</h5>
+        <input type="text" class="form-control" id='user-word'>
+        <button id='submit'>Go!</button>`;
+        $('#user-input-div').html(inputDiv);
+        $("#submit").on("click", function(event){
+        event.preventDefault();
+        var userInput = $("#user-word").val();
+        if(userInput.charAt(0) === userClick){
+        alert("YOU ROCK");
+        }else{
+        alert("try agagin");
+        };
         });
-
-
+        
     };
 });
 
