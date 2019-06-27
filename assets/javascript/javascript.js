@@ -6,26 +6,26 @@ var d =["deer", "dog", "donkey", "dolphin"];
 var e =["elephant", "eagle", "emu"];
 var f =["fox", "flamingo", "ferret"];
 var g =["gecko", "gerbil", "giraffe"];
-var alphabet = [a,b,c,d,e,f,g];
-// var h =[];
-// var i =[];
-// var j =[];
-// var k =[];
-// var l =[];
-// var m =[];
-// var n =[];
-// var o =[];
-// var p =[];
-// var q =[];
-// var r =[];
-// var s =[];
-// var t =[];
-// var u =[];
-// var v =[];
-// var w =[];
-// var x =[];
-// var y =[];
-// var z =[];
+var h =["hedgehog", "horse", "hyena"];
+var i =["iguana", "insect"];
+var j =["jellyfish", "jaguar"];
+var k =["kangaroo"];
+var l =["lion", "lizard", "llama"];
+var m =["monkey", "moose", "mouse"];
+var n =["newt"];
+var o =["otter", "octopus", "orangutan"];
+var p =["parrot", "pig", "poodle"];
+var q =["quail"];
+var r =["rabbit", "raccoon", "rat"];
+var s =["seal", "scorpion", "skunk"];
+var t =["tortoise", "tiger"];
+var u =["unicorn"];
+var v =["vulture"];
+var w =["walrus", "weasel"];
+var x =["NOTHING"];
+var y =["yak"];
+var z =["zebra"];
+var alphabet = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z];
 var random;
 var randomArray;
 var generated;
@@ -55,7 +55,7 @@ $("body").on("click", ".btn", function(){
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#randomword").html("<h3>" + random +"</h3>");
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
     
             $.ajax({
                 url: queryURL,
@@ -77,6 +77,23 @@ $("body").on("click", ".btn", function(){
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         console.log(randomtext);
         $("#randomword").html("<h3>" + randomtext +"</h3>");
+
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1&rating=g";
+    
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response.data);
+            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+
+            apikey = "01c631d7-9638-42b7-adbe-8337d0e10bd4"
+            var dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/sd2/json/school?key=01c631d7-9638-42b7-adbe-8337d0e10bd4"
+
+
+        });
+
+
     };
 });
 
