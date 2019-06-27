@@ -33,8 +33,8 @@ var randomtext;
 
 //});
 $("body").on("click", ".btn", function(){
+    randomLetterClick();
     if($(this).attr("id")=== "randomletter"){
-        randomLetterClick();
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
 
         $.ajax({
@@ -44,6 +44,14 @@ $("body").on("click", ".btn", function(){
             console.log(response.data);
             $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
         });
+        var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ randomtext +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+        $.ajax({
+            url: dictionaryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+        });
+        
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
@@ -68,6 +76,13 @@ $("body").on("click", ".btn", function(){
             }).then(function(response){
                 console.log(response.data);
                 $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ random +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                $.ajax({
+                    url: dictionaryURL,
+                    method: "GET"
+                }).then(function(response){
+                    console.log(response);
+                });
             });
         };
     };
