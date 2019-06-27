@@ -48,14 +48,14 @@ $("body").on("click", ".btn", function(){
             url: dictionaryURL,
             method: "GET"
         }).then(function(response){
-            console.log(response);
+            $("#pronunciation").text(response[0].hwi.prs[0].mw);
         });
         
     }else{
     var userClick = $(this).attr("id");
     $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
     
-    var inputDiv = `<h5>Write a letter that starts with ${userClick}</h5>
+    var inputDiv = `<h5>Write a word that starts with ${userClick}</h5>
                        <input type="text" class="form-control" id='user-word'>
                        <button id='submit'>Go!</button>`;
    $('#user-input-div').html(inputDiv);
