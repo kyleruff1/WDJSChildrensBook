@@ -33,3 +33,19 @@
     margin-bottom: -50px;
 
 }
+
+#bigletter  {
+
+    font-size: 200px;
+
+}
+
+h1{
+    height: 100%;
+    font-size: 100%;
+
+}
+img  {
+    width: 100%;
+    height: auto;
+}
