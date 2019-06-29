@@ -19,21 +19,21 @@
 <body>
     <div class="container d-none" id="login">
         <div class="form-group">
-        <label for="">Email</label>
-        <input type="email" class="form-control col-3" id="email-login" placeholder="email">
-        <label for="">Password</label>
-        <input type="password" class="form-control col-3"  id="password-login" placeholder="password">
-        <button onclick="login()" class="btn btn-primary" role="button">Login</button>
-        <button onclick="signUp()" class="btn btn-primary" role="button">Sign Up</button>
-        <p class="error-message"></p>
+            <label for="">Email</label>
+            <input type="email" class="form-control col-3" id="email-login" placeholder="email">
+            <label for="">Password</label>
+            <input type="password" class="form-control col-3" id="password-login" placeholder="password">
+            <button onclick="login()" class="btn btn-primary" role="button">Login</button>
+            <button onclick="signUp()" class="btn btn-primary" role="button">Sign Up</button>
+            <p class="error-message"></p>
         </div>
     </div>
 
 
     <div id="hidden" class="d-none">
-       
+
         <div class="jumbotron">
-                <button onclick ="logOut()" id="logoutbtn">Logout</button>
+            <button onclick="logOut()" id="logoutbtn">Logout</button>
             <h1 class="display-3 font-weight-bold">Learn the Alphabet</h1>
             <div class="container">
                 <div class="btn-toolbar">
@@ -64,7 +64,7 @@
                         <button class="btn btn-default" id="x">X</button>
                         <button class="btn btn-default" id="y">Y</button>
                         <button class="btn btn-default" id="z">Z</button>
-                   </div> 
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -77,57 +77,66 @@
             </p>
         </div>
 
-            <div class="row">
-                <div class="col-lg-6" style="background: rgb(0, 0, 0)">
-                    <div class="playerside">
-                        <div id="player">
+        <div class="row">
+            <div class="col-lg-6" style="background: rgb(0, 0, 0)">
+                <div class="playerside">
+                    <div id="player">
 
-                        </div>
-                        <div id="videodesc">
+                    </div>
+                    <div id="videodesc">
 
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6" style="background: rgba(0, 0, 0, 0)">
-                        <div class="wordside">
-                          <h1 id="bigletterheader">  <div id="bigletter"> </h1>
-                            </div>
-   
-                            <h3 class="pronunciation-sound">click here for pronunciation
-                                <div id="pronunciation">
-                                </div>
-                            </h3>
-                          
 
-                            <p id="definition"></p>
-
-                            <br>
-                            <div id="user-input-div">
-                            </div>
-
-
-                        </div>
-                    </div>
+            </div>
+            <div class="col-lg-6" style="background: rgba(0, 0, 0, 0)">
+                <div class="wordside">
+                    <h1 id="bigletterheader">
+                        <div id="bigletter">
+                    </h1>
+                </div><div id="pronunciation">
                 </div>
+                <p id="definition"></p>
+
+
+
+
+                <h3 class="pronunciation-sound">click here for pronunciation
+                    
+                </h3>
+                <div id="randomword">
+                </div>
+
+
+
+
+                <br>
+                <div id="user-input-div">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
     </div>
 
 
 
 
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
-            <!-- <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-database-app.js"></script> -->
-            <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-auth.js"></script>
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"></script>
-            <!-- Optional JavaScript -->
-            <script src="./assets/javascript/javascript.js"></script>    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-database-app.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <script src="./assets/javascript/javascript.js"></script>
 </body>
 
 </html>

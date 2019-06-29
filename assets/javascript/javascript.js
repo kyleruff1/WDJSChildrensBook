@@ -33,8 +33,10 @@ var randomtext;
 // prounounce variables
 var sound;
 var firstCharInSound;
+var audio = new Audio();
+console.log(audio);
 
-//on click function
+//});
 $("body").on("click", ".btn", function(){
     randomLetterClick();
     if($(this).attr("id")=== "randomletter"){
@@ -143,15 +145,7 @@ $("body").on("click", ".btn", function(){
 
 
     // pronounce needs to click multiple times without echoing -USE .ONE if no other option
-    $(".pronunciation-sound").one("click", function(){
-        var audio = new Audio("https://media.merriam-webster.com/soundc11/"+ firstCharInSound + "/" + sound + ".wav")
-        $("#audio-sound").html(audio.play());
-        //audio.play();
-        
-        // firstCharInSound = undefined;
-        // sound = undefined;
-        console.log(audio);
-    });
+
 
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -174,7 +168,29 @@ $("body").on("click", ".btn", function(){
         var userInput = $("#user-word").val();
         if(userInput.charAt(0) === generated){
 
-        alert("YOU ROCK");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+            });    
+
+            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ userInput +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+            $.ajax({
+                url: dictionaryURL,
+                method: "GET"
+            }).then(function(response){
+                console.log(response[0].hwi);
+                $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+
+                $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                sound = response[0].hwi.prs[0].sound.audio
+                firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+
+                $("#definition").text(response[0].shortdef[0]);
+            });
         
         }else{
 
@@ -184,6 +200,17 @@ $("body").on("click", ".btn", function(){
         });
         
     };
+});
+$(".pronunciation-sound").on("click", function(){
+    var source = ("https://media.merriam-webster.com/soundc11/" + firstCharInSound + "/" + sound + ".wav")
+    console.log("got clicked");
+    audio.src = source;
+    audio.play();
+    //audio.play();
+    
+    // firstCharInSound = undefined;
+    // sound = undefined;
+    console.log(audio);
 });
 
 // youtube api key = AIzaSyBYFrpVJlSShJgHVOCjDF2-NUE-VuoEOjk
