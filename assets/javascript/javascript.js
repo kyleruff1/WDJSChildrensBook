@@ -34,8 +34,7 @@ var randomtext;
 var sound;
 var firstCharInSound;
 
-
-//});
+//on click function
 $("body").on("click", ".btn", function(){
     randomLetterClick();
     if($(this).attr("id")=== "randomletter"){
@@ -73,7 +72,6 @@ $("body").on("click", ".btn", function(){
         $("#submit").on("click", function(event){
         event.preventDefault();
         var userInput = $("#user-word").val().toLowerCase();
-        
         if(userInput.charAt(0) === userClick){
             //ADD A MODULE HERE 
 
@@ -158,7 +156,7 @@ $("body").on("click", ".btn", function(){
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
         generated = randomArray[0].charAt(0).toUpperCase();
-        
+        console.log(generated);
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         $("#bigletter").html(generated + randomtext.substr(1));
@@ -169,13 +167,19 @@ $("body").on("click", ".btn", function(){
         <input type="text" class="form-control" id='user-word'>
         <button id='submit'>Go!</button>`;
         $('#user-input-div').html(inputDiv);
+        
+        //when user submits input 
         $("#submit").on("click", function(event){
         event.preventDefault();
         var userInput = $("#user-word").val();
-        if(userInput.charAt(0) === userClick){
+        if(userInput.charAt(0) === generated){
+
         alert("YOU ROCK");
+        
         }else{
+
         alert("try agagin");
+
         };
         });
         
@@ -237,3 +241,5 @@ function signUp(){
     });
 }
 
+
+//});
