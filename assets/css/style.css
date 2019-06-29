@@ -135,3 +135,7 @@ h5  {
     color: coral;
     text-shadow: white;
 }
+
+label {
+    color: white;
+}
