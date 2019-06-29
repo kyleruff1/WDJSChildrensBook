@@ -1,8 +1,8 @@
 //$(document).ready(function(){
-var a =["alligator", "armadillo", "anaconda", "ardvark"];
-var b =["baboon", "badger", "bat", "buffalo"];
-var c =["cat", "camel", "cheetah"];
-var d =["deer", "dog", "donkey", "dolphin"];
+var a =["alligator", "armadillo", "anaconda", "ardvark", "apple", "avocado", "astronaut", "ant", "asteroid", "airplane"];
+var b =["baboon", "beetle", "bat", "buffalo", "boat", "broccoli", "bridge", "banana", "bread", "bird"];
+var c =["cat", "candle", "cheetah", "candy", "crayon", "car", "chair", "city", "chocolate", "carrot"];
+var d =["deer", "dog", "donkey", "dolphin", "duck", "dolphin", "drum", "donut"];
 var e =["elephant", "eagle", "emu"];
 var f =["fox", "flamingo", "ferret"];
 var g =["gecko", "gerbil", "giraffe"];
@@ -270,6 +270,10 @@ function signUp(){
         $(".error-message").html(errorMessage)
     });
 }
+
+function leaderBoard(){
+
+};
 
 
 //});

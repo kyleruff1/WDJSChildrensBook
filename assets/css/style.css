@@ -59,14 +59,16 @@ body{
     font-size: 100%;
     margin: auto;
     width: 70%;
-    height: 250px;
+    height: 100px;
     padding: 10px;
     text-shadow: 2px 2px white;
+    text-align: center;
 }
 
 #bigletterheader {
     height: 100%;
     font-size: 500%;
+    text-align: center;
 }
 
 h3 {
@@ -113,20 +115,15 @@ img  {
     
     
 }
-.pronunciation-sound   {
-    color: white;
-    text-shadow: 2px 2px coral;
-}
+
 #pronunciation {
     color: white;
-    text-shadow: hotpink;
     text-align: center;
     
 }
 
 #definition {
     color: white;
-    text-shadow: hotpink;
     text-align: center;
 
 }
@@ -134,8 +131,52 @@ img  {
 h5  {
     color: coral;
     text-shadow: white;
+    text-align: center;
+    text-shadow: 2px 2px black;
+}
+
+.form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+        color: white;
+      }
+.btn-primary {
+    background-color: coral;
+}
+
+.pronunciation-sound    {
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px hotpink;
 }
 
 label {
     color: white;
+}
+
+.pronunciation-sound    {
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px hotpink;
+}
+
+#submit {
+    background-color: coral
+
+}
+.form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+        color: white;
+      }
+.btn-primary {
+    background-color: coral;
 }
