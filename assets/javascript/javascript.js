@@ -80,7 +80,7 @@ $("body").on("click", ".btn", function(){
             
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
-            $("#bigletter").html("<h1>"+ userClick.toUpperCase() + random.substr(1) +"</h1>");
+            $("#bigletter").html(userClick.toUpperCase() + random.substr(1));
             // $("#randomword").html("<h3>" + random +"</h3>");
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
     
@@ -119,7 +119,7 @@ $("body").on("click", ".btn", function(){
         
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
-        $("#bigletter").html("<h1>" + generated + randomtext.substr(1) +"</h1>");
+        $("#bigletter").html(generated + randomtext.substr(1));
         // $("#randomword").html("<h3>" + randomtext +"</h3>");
 
         

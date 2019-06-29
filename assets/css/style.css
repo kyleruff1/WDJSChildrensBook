@@ -47,17 +47,18 @@
 #bigletter  {
     font-family: fredericka-the-great, sans-serif;
     font-weight: 400;
-    font-size: 200px;
+    font-size: 100%;
     margin: auto;
     width: 70%;
+    height: 250px;
     padding: 10px;
     text-shadow: 2px 2px white;
 
 }
 
-h1{
+#bigletterheader {
     height: 100%;
-    font-size: 100%;
+    font-size: 500%;
 
 }
 h3 {
@@ -80,4 +81,12 @@ body{
 #logoutbtn {
     float: left;
     font-family: Arial, Helvetica, sans-serif;
+}
+#randomletter {
+    align-self: center;
+
+}
+.randombtn  {
+    margin: 0px;
+    padding: 0;
 }
