@@ -33,7 +33,8 @@ var randomtext;
 // prounounce variables
 var sound;
 var firstCharInSound;
-
+var audio = new Audio();
+console.log(audio);
 
 //});
 $("body").on("click", ".btn", function(){
@@ -56,7 +57,7 @@ $("body").on("click", ".btn", function(){
             sound = response[0].hwi.prs[0].sound.audio
             firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
             //definition print for random button
-            $("#definition").text(response[0].shortdef[0])
+            $("#definition").text(response[0].shortdef[0]);
         });
         
         }else{
@@ -64,7 +65,8 @@ $("body").on("click", ".btn", function(){
         var userClick = $(this).attr("id");
         // $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
         
-        var inputDiv = `<h5>Write a word that starts with ${userClick}</h5>
+        var userClickUpper = userClick.toUpperCase();
+        var inputDiv = `<h5>Write a word that starts with ${userClickUpper}</h5>
                         <input type="text" class="form-control" id='user-word'>
                         <button id='submit'>Go!</button>`;
         $('#user-input-div').html(inputDiv);
@@ -72,6 +74,7 @@ $("body").on("click", ".btn", function(){
         $("#submit").on("click", function(event){
         event.preventDefault();
         var userInput = $("#user-word").val().toLowerCase();
+        
         if(userInput.charAt(0) === userClick){
             //ADD A MODULE HERE 
 
@@ -90,11 +93,13 @@ $("body").on("click", ".btn", function(){
                 method: "GET"
             }).then(function(response){
                 console.log(response[0].hwi);
-                $("#bigletter").html("<h1>"+ userInput.charAt(0).toUpperCase() + userInput.substr(1) +"</h1>");
+                $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
 
                 $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
                 sound = response[0].hwi.prs[0].sound.audio
                 firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+
+                $("#definition").text(response[0].shortdef[0]);
             });
 
 
@@ -141,15 +146,7 @@ $("body").on("click", ".btn", function(){
 
 
     // pronounce needs to click multiple times without echoing -USE .ONE if no other option
-    $(".pronunciation-sound").one("click", function(){
-        var audio = new Audio("https://media.merriam-webster.com/soundc11/"+ firstCharInSound + "/" + sound + ".wav")
-        $("#audio-sound").html(audio.play());
-        //audio.play();
-        
-        // firstCharInSound = undefined;
-        // sound = undefined;
-        console.log(audio);
-    });
+
 
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -176,6 +173,17 @@ $("body").on("click", ".btn", function(){
         });
         
     };
+});
+$(".pronunciation-sound").on("click", function(){
+    var source = ("https://media.merriam-webster.com/soundc11/" + firstCharInSound + "/" + sound + ".wav")
+    console.log("got clicked");
+    audio.src = source;
+    audio.play();
+    //audio.play();
+    
+    // firstCharInSound = undefined;
+    // sound = undefined;
+    console.log(audio);
 });
 
 // youtube api key = AIzaSyBYFrpVJlSShJgHVOCjDF2-NUE-VuoEOjk
