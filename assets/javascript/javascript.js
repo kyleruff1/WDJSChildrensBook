@@ -1,6 +1,6 @@
 //$(document).ready(function(){
-var a =["alligator", "armadillo", "anaconda", "ardvark"];
-var b =["baboon", "badger", "bat", "buffalo"];
+var a =["alligator", "armadillo", "anaconda", "ardvark", "apple", "avocado", "astronaut", "ant", "asteroid", "airplane"];
+var b =["baboon", "badger", "bat", "buffalo", "boat"];
 var c =["cat", "camel", "cheetah"];
 var d =["deer", "dog", "donkey", "dolphin"];
 var e =["elephant", "eagle", "emu"];
