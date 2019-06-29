@@ -26,6 +26,7 @@ body{
     color: coral;
     text-shadow: 2px 2px white;
     font-family: aclonica, sans-serif;
+    z-index: -2;
 }
 .btn-toolbar {
     width: 100%;
@@ -46,7 +47,8 @@ body{
 .btn-default:hover,.btn-default {
     font-size: 700%;
     text-shadow: 2px 2px white;
-    
+    z-index: 0;
+    border: none !important;
 
 }
 .display-3  {
@@ -100,6 +102,8 @@ img  {
     margin: 0px;
     padding: 0;
     margin-top: -100px;
+    z-index: 1 !important;
+    float: initial;
     
     
 }
@@ -107,6 +111,7 @@ img  {
     margin: 0px;
     padding: 0;
     margin-top: -100px;
+    z-index: 1 !important;    ;
     
     
 }
@@ -115,7 +120,20 @@ img  {
     text-shadow: 2px 2px coral;
 }
 #pronunciation {
-    color: hotpink;
-    text-shadow: white;
+    color: white;
+    text-shadow: hotpink;
+    text-align: center;
     
+}
+
+#definition {
+    color: white;
+    text-shadow: hotpink;
+    text-align: center;
+
+}
+
+h5  {
+    color: coral;
+    text-shadow: white;
 }
