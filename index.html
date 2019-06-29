@@ -16,15 +16,17 @@
 
     <script src="//use.edgefonts.net/aclonica.js"></script>
     <script src="//use.edgefonts.net/fredericka-the-great.js"></script>
+
 </head>
 
 <body>
     <div class="container d-none" id="login">
         <div class="form-group">
             <label for="">Email</label>
-            <input type="email" class="form-control col-3" id="email-login" placeholder="email">
+            <input type="email" class="form-control col-3 mx-auto" id="email-login" placeholder="email">
             <label for="">Password</label>
-            <input type="password" class="form-control col-3" id="password-login" placeholder="password">
+            <input type="password" class="form-control col-3 mx-auto" id="password-login" placeholder="password">
+            <br>
             <button onclick="login()" class="btn btn-primary" role="button">Login</button>
             <button onclick="signUp()" class="btn btn-primary" role="button">Sign Up</button>
             <p class="error-message"></p>
@@ -72,9 +74,9 @@
                 <br>
                 <br>
                 <br>
-                    <div class="randombtn">
-                        <button class="btn btn-danger" id="randomletter">Random</button>
-                    </div>
+                <div class="randombtn">
+                    <button class="btn btn-danger" id="randomletter">Random</button>
+                </div>
             </div>
             </p>
         </div>
@@ -96,19 +98,16 @@
                     <h1 id="bigletterheader">
                         <div id="bigletter">
                     </h1>
-                </div><div id="pronunciation">
+
                 </div>
+             
+                <div id="pronunciation">
+                </div>    <div class="pronunciation-sound fas fa-headphones-alt">
+                        
+                      
+    
+                    </div>
                 <p id="definition"></p>
-
-
-
-
-                <h3 class="pronunciation-sound fas fa-headphones d-none">
-                    
-                </h3>
-                <div id="randomword">
-                </div>
-
 
 
 
@@ -121,7 +120,6 @@
         </div>
     </div>
     </div>
-
 
 
 
