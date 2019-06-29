@@ -1,12 +1,20 @@
+body{ 
+    background-image: radial-gradient(circle, coral, black 50%);;
+    height: 960px;
+}
 .row {
     margin: auto;
     width: 70%;
     padding: 10px;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 
 }
 
 .col {
     height: 100%;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 }
 
 .jumbotron {
@@ -26,17 +34,21 @@
     height: 300px;
     text-shadow: 2px 2px white;
     color: white;
+    z-index: -1;
 }
 
 }
 .container {
     text-align: center;
     width: 100%;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 
 }
 .btn-default:hover,.btn-default {
     font-size: 700%;
     text-shadow: 2px 2px white;
+    
 
 }
 .display-3  {
@@ -47,17 +59,18 @@
 #bigletter  {
     font-family: fredericka-the-great, sans-serif;
     font-weight: 400;
-    font-size: 200px;
+    font-size: 100%;
     margin: auto;
     width: 70%;
+    height: 250px;
     padding: 10px;
     text-shadow: 2px 2px white;
 
 }
 
-h1{
+#bigletterheader {
     height: 100%;
-    font-size: 100%;
+    font-size: 500%;
 
 }
 h3 {
@@ -70,14 +83,41 @@ img  {
     width: 100%;
     height: auto;
 }
-body{ 
-    background-image: linear-gradient(coral, black,coral);
-    height: 960px;
-}
+
 .wordside {
     height: auto;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 }
 #logoutbtn {
     float: left;
     font-family: Arial, Helvetica, sans-serif;
+}
+#randomletter {
+    align-self: center;
+    background-color: coral;
+
+}
+.randombtn  {
+    margin: 0px;
+    padding: 0;
+    margin-top: -100px;
+    
+    
+}
+.randombtn:hover  {
+    margin: 0px;
+    padding: 0;
+    margin-top: -100px;
+    
+    
+}
+.pronunciation-sound   {
+    color: white;
+    text-shadow: 2px 2px coral;
+}
+#pronunciation {
+    color: hotpink;
+    text-shadow: white;
+    
 }
