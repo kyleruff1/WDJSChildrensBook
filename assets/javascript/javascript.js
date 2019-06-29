@@ -30,6 +30,10 @@ var random;
 var randomArray;
 var generated;
 var randomtext;
+// prounounce variables
+var sound;
+var firstCharInSound;
+
 
 //});
 $("body").on("click", ".btn", function(){
@@ -48,25 +52,27 @@ $("body").on("click", ".btn", function(){
             url: dictionaryURL,
             method: "GET"
         }).then(function(response){
-            $("#pronunciation").text(response[0].hwi.prs[0].mw);
+            $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+            sound = response[0].hwi.prs[0].sound.audio
+            firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
         });
         
-    }else{
-    var userClick = $(this).attr("id");
-    $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
-    
-    var inputDiv = `<h5>Write a word that starts with ${userClick}</h5>
-                       <input type="text" class="form-control" id='user-word'>
-                       <button id='submit'>Go!</button>`;
-   $('#user-input-div').html(inputDiv);
-   $("#submit").on("click", function(event){
-    event.preventDefault();
-    var userInput = $("#user-word").val();
-    if(userInput.charAt(0) === userClick){
-        alert("YOU ROCK");
-    }else{
-        alert("try agagin");
-    };
+        }else{
+        var userClick = $(this).attr("id");
+        // $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
+        
+        var inputDiv = `<h5>Write a word that starts with ${userClick}</h5>
+                        <input type="text" class="form-control" id='user-word'>
+                        <button id='submit'>Go!</button>`;
+        $('#user-input-div').html(inputDiv);
+        $("#submit").on("click", function(event){
+        event.preventDefault();
+        var userInput = $("#user-word").val();
+        if(userInput.charAt(0) === userClick){
+            alert("YOU ROCK");
+        }else{
+            alert("try agagin");
+        };
 });
     };
     for(var i=0; i<alphabet.length;i++){
@@ -74,7 +80,8 @@ $("body").on("click", ".btn", function(){
             
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
-            $("#randomword").html("<h3>" + random +"</h3>");
+            $("#bigletter").html("<h1>"+ userClick.toUpperCase() + random.substr(1) +"</h1>");
+            // $("#randomword").html("<h3>" + random +"</h3>");
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
     
             $.ajax({
@@ -83,25 +90,37 @@ $("body").on("click", ".btn", function(){
             }).then(function(response){
                 console.log(response.data);
                 $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
-                var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ random +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
-                $.ajax({
-                    url: dictionaryURL,
-                    method: "GET"
-                }).then(function(response){
-                    console.log(response);
-                });
+            });
+            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ random +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+            $.ajax({
+                url: dictionaryURL,
+                method: "GET"
+            }).then(function(response){
+                console.log(response[0].hwi);
+                $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                sound = response[0].hwi.prs[0].sound.audio
+                firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
             });
         };
     };
 
+    // pronounce
+    $(".pronounciation-sound").click(function(){
+        var audio = new Audio("https://media.merriam-webster.com/soundc11/"+ firstCharInSound + "/" + sound + ".wav")
+        audio.play();
+        firstCharInSound = undefined;
+        sound = undefined;
+        console.log(audio);
+    });
 
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
         generated = randomArray[0].charAt(0).toUpperCase();
-        $("#bigletter").html("<h1>" + generated +"</h1>");
+        
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
-        $("#randomword").html("<h3>" + randomtext +"</h3>");
+        $("#bigletter").html("<h1>" + generated + randomtext.substr(1) +"</h1>");
+        // $("#randomword").html("<h3>" + randomtext +"</h3>");
 
         
         var inputDiv = `<h5>Write a letter that starts with ${generated}</h5>
