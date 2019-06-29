@@ -146,6 +146,7 @@ h5  {
     background-color: coral;
 }
 
+
 .pronunciation-sound    {
     color: white;
     text-align: center;
@@ -155,4 +156,16 @@ h5  {
 #submit {
     background-color: coral
 
+}
+.form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+        color: white;
+      }
+.btn-primary {
+    background-color: coral;
 }

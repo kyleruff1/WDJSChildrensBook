@@ -38,6 +38,7 @@ console.log(audio);
 
 //});
 $("body").on("click", ".btn", function(){
+    $(".pronunciation-sound").attr("class", "pronunciation-sound fas fa-headphones d-block")
     randomLetterClick();
     if($(this).attr("id")=== "randomletter"){
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
@@ -267,6 +268,10 @@ function signUp(){
         $(".error-message").html(errorMessage)
     });
 }
+
+function leaderBoard(){
+
+};
 
 
 //});
