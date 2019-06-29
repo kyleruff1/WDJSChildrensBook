@@ -33,7 +33,8 @@ var randomtext;
 // prounounce variables
 var sound;
 var firstCharInSound;
-
+var audio = new Audio();
+console.log(audio);
 
 //});
 $("body").on("click", ".btn", function(){
@@ -145,15 +146,7 @@ $("body").on("click", ".btn", function(){
 
 
     // pronounce needs to click multiple times without echoing -USE .ONE if no other option
-    $(".pronunciation-sound").one("click", function(){
-        var audio = new Audio("https://media.merriam-webster.com/soundc11/"+ firstCharInSound + "/" + sound + ".wav")
-        $("#audio-sound").html(audio.play());
-        //audio.play();
-        
-        // firstCharInSound = undefined;
-        // sound = undefined;
-        console.log(audio);
-    });
+
 
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -180,6 +173,17 @@ $("body").on("click", ".btn", function(){
         });
         
     };
+});
+$(".pronunciation-sound").on("click", function(){
+    var source = ("https://media.merriam-webster.com/soundc11/" + firstCharInSound + "/" + sound + ".wav")
+    console.log("got clicked");
+    audio.src = source;
+    audio.play();
+    //audio.play();
+    
+    // firstCharInSound = undefined;
+    // sound = undefined;
+    console.log(audio);
 });
 
 // youtube api key = AIzaSyBYFrpVJlSShJgHVOCjDF2-NUE-VuoEOjk
