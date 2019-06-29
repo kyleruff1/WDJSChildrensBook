@@ -55,9 +55,12 @@ $("body").on("click", ".btn", function(){
             $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
             sound = response[0].hwi.prs[0].sound.audio
             firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+            //definition print for random button
+            $("#definition").text(response[0].shortdef[0])
         });
         
         }else{
+        $("#audio-sound").empty();
         var userClick = $(this).attr("id");
         // $("#bigletter").html("<h1>"+ userClick.toUpperCase() +"</h1>");
         
@@ -65,13 +68,41 @@ $("body").on("click", ".btn", function(){
                         <input type="text" class="form-control" id='user-word'>
                         <button id='submit'>Go!</button>`;
         $('#user-input-div').html(inputDiv);
+
         $("#submit").on("click", function(event){
         event.preventDefault();
-        var userInput = $("#user-word").val();
+        var userInput = $("#user-word").val().toLowerCase();
         if(userInput.charAt(0) === userClick){
-            alert("YOU ROCK");
+            //ADD A MODULE HERE 
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+            });    
+
+            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ userInput +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+            $.ajax({
+                url: dictionaryURL,
+                method: "GET"
+            }).then(function(response){
+                console.log(response[0].hwi);
+                $("#bigletter").html("<h1>"+ userInput.charAt(0).toUpperCase() + userInput.substr(1) +"</h1>");
+
+                $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                sound = response[0].hwi.prs[0].sound.audio
+                firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+            });
+
+
+
+
+
         }else{
-            alert("try agagin");
+            //ADD MODULE HERE FOR "TRY AGAIN"!
         };
 });
     };
@@ -82,7 +113,7 @@ $("body").on("click", ".btn", function(){
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#bigletter").html("<h1>"+ userClick.toUpperCase() + random.substr(1) +"</h1>");
             // $("#randomword").html("<h3>" + random +"</h3>");
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
     
             $.ajax({
                 url: queryURL,
@@ -91,25 +122,32 @@ $("body").on("click", ".btn", function(){
                 console.log(response.data);
                 $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
             });
-            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ random +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
-            $.ajax({
-                url: dictionaryURL,
-                method: "GET"
-            }).then(function(response){
-                console.log(response[0].hwi);
-                $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
-                sound = response[0].hwi.prs[0].sound.audio
-                firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
-            });
         };
     };
+    //dictionary API Call
+    var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ random +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+    $.ajax({
+        url: dictionaryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response[0].shortdef[0]);
+        //pronunciation insert in HTML
+        $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+        //save API call info into the sound variable 
+        sound = response[0].hwi.prs[0].sound.audio;
+        firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+        $("#definition").text(response[0].shortdef[0])
+    });
 
-    // pronounce
-    $(".pronounciation-sound").click(function(){
+
+    // pronounce needs to click multiple times without echoing -USE .ONE if no other option
+    $(".pronunciation-sound").one("click", function(){
         var audio = new Audio("https://media.merriam-webster.com/soundc11/"+ firstCharInSound + "/" + sound + ".wav")
-        audio.play();
-        firstCharInSound = undefined;
-        sound = undefined;
+        $("#audio-sound").html(audio.play());
+        //audio.play();
+        
+        // firstCharInSound = undefined;
+        // sound = undefined;
         console.log(audio);
     });
 
@@ -123,7 +161,7 @@ $("body").on("click", ".btn", function(){
         // $("#randomword").html("<h3>" + randomtext +"</h3>");
 
         
-        var inputDiv = `<h5>Write a letter that starts with ${generated}</h5>
+        var inputDiv = `<h5>Write a word that starts with ${generated}</h5>
         <input type="text" class="form-control" id='user-word'>
         <button id='submit'>Go!</button>`;
         $('#user-input-div').html(inputDiv);
@@ -190,9 +228,8 @@ function signUp(){
     var userPass = $("#password-login").val();
     firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
         var errorMessage = error.message;
-        $(".error-message").html(errormessage)
+        $(".error-message").html(errorMessage)
     });
 }
 
