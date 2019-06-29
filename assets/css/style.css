@@ -59,7 +59,7 @@ body{
     font-size: 100%;
     margin: auto;
     width: 70%;
-    height: 250px;
+    height: 100px;
     padding: 10px;
     text-shadow: 2px 2px white;
 }
@@ -113,10 +113,7 @@ img  {
     
     
 }
-.pronunciation-sound   {
-    color: white;
-    text-shadow: 2px 2px coral;
-}
+
 #pronunciation {
     color: white;
     text-shadow: hotpink;
@@ -135,3 +132,18 @@ h5  {
     color: coral;
     text-shadow: white;
 }
+
+.form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+        color: white;
+      }
+.btn-primary {
+    background-color: coral;
+}
+
+
