@@ -74,7 +74,6 @@ $("body").on("click", ".btn", function(){
         $("#submit").on("click", function(event){
         event.preventDefault();
         var userInput = $("#user-word").val().toLowerCase();
-        
         if(userInput.charAt(0) === userClick){
             //ADD A MODULE HERE 
 
@@ -151,7 +150,7 @@ $("body").on("click", ".btn", function(){
     function randomLetterClick(){
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
         generated = randomArray[0].charAt(0).toUpperCase();
-        
+        console.log(generated);
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         $("#bigletter").html(generated + randomtext.substr(1));
@@ -162,13 +161,41 @@ $("body").on("click", ".btn", function(){
         <input type="text" class="form-control" id='user-word'>
         <button id='submit'>Go!</button>`;
         $('#user-input-div').html(inputDiv);
+        
+        //when user submits input 
         $("#submit").on("click", function(event){
         event.preventDefault();
         var userInput = $("#user-word").val();
-        if(userInput.charAt(0) === userClick){
-        alert("YOU ROCK");
+        if(userInput.charAt(0) === generated){
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=10";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+            });    
+
+            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/"+ userInput +"?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+            $.ajax({
+                url: dictionaryURL,
+                method: "GET"
+            }).then(function(response){
+                console.log(response[0].hwi);
+                $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+
+                $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                sound = response[0].hwi.prs[0].sound.audio
+                firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+
+                $("#definition").text(response[0].shortdef[0]);
+            });
+        
         }else{
+
         alert("try agagin");
+
         };
         });
         
@@ -241,3 +268,5 @@ function signUp(){
     });
 }
 
+
+//});

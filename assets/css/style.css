@@ -8,7 +8,6 @@ body{
     padding: 10px;
     background: rgb(0, 0, 0); /* Fallback color */
     background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
-
 }
 
 .col {
@@ -35,7 +34,6 @@ body{
     height: 300px;
     text-shadow: 2px 2px white;
     color: white;
-    z-index: -1;
 }
 .container {
     text-align: center;
@@ -53,7 +51,6 @@ body{
 }
 .display-3  {
     margin-bottom: -100px;
-
 }
 
 #bigletter  {
@@ -65,20 +62,19 @@ body{
     height: 250px;
     padding: 10px;
     text-shadow: 2px 2px white;
-
 }
 
 #bigletterheader {
     height: 100%;
     font-size: 500%;
-
 }
+
 h3 {
     margin: auto;
     width: 70%;
     padding: 10px;
-
 }
+
 img  {
     width: 100%;
     height: auto;
@@ -89,10 +85,12 @@ img  {
     background: rgb(0, 0, 0); /* Fallback color */
     background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 }
+
 #logoutbtn {
     float: left;
     font-family: Arial, Helvetica, sans-serif;
 }
+
 #randomletter {
     align-self: center;
     background-color: coral;
