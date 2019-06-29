@@ -62,11 +62,13 @@ body{
     height: 100px;
     padding: 10px;
     text-shadow: 2px 2px white;
+    text-align: center;
 }
 
 #bigletterheader {
     height: 100%;
     font-size: 500%;
+    text-align: center;
 }
 
 h3 {
@@ -146,6 +148,16 @@ h5  {
     background-color: coral;
 }
 
+.pronunciation-sound    {
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px hotpink;
+}
+
+#submit {
+    background-color: coral
+
+}
 
 .pronunciation-sound    {
     color: white;
@@ -169,3 +181,4 @@ h5  {
 .btn-primary {
     background-color: coral;
 }
+
