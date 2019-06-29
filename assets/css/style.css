@@ -116,14 +116,12 @@ img  {
 
 #pronunciation {
     color: white;
-    text-shadow: hotpink;
     text-align: center;
     
 }
 
 #definition {
     color: white;
-    text-shadow: hotpink;
     text-align: center;
 
 }
@@ -131,6 +129,8 @@ img  {
 h5  {
     color: coral;
     text-shadow: white;
+    text-align: center;
+    text-shadow: 2px 2px black;
 }
 
 .form-group {
@@ -147,3 +147,25 @@ h5  {
 }
 
 
+.pronunciation-sound    {
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px hotpink;
+}
+
+#submit {
+    background-color: coral
+
+}
+.form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+        color: white;
+      }
+.btn-primary {
+    background-color: coral;
+}
