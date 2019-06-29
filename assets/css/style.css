@@ -62,11 +62,13 @@ body{
     height: 100px;
     padding: 10px;
     text-shadow: 2px 2px white;
+    text-align: center;
 }
 
 #bigletterheader {
     height: 100%;
     font-size: 500%;
+    text-align: center;
 }
 
 h3 {
