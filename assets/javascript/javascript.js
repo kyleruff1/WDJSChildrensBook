@@ -236,6 +236,8 @@ if (user) {
     $("#hidden").attr("class", "d-block")
     $("#login").attr("class", "container d-none")
     var user = firebase.auth().currentUser;
+    console.log(user.email);
+    console.log(user.password);
 } else {
     $("#hidden").attr("class", "d-none")
     $("#login").attr("class", "container d-block")
