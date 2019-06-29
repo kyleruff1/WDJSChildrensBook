@@ -268,5 +268,9 @@ function signUp(){
     });
 }
 
+function leaderBoard(){
+
+};
+
 
 //});
