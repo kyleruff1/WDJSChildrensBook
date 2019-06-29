@@ -275,5 +275,8 @@ function leaderBoard(){
 
 };
 
+var database = firebase.database();
+
+
 
 //});
