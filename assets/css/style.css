@@ -1,3 +1,7 @@
+body{ 
+    background-image: radial-gradient(circle, coral, black 50%);;
+    height: 960px;
+}
 .row {
     margin: auto;
     width: 70%;
@@ -30,6 +34,7 @@
     height: 300px;
     text-shadow: 2px 2px white;
     color: white;
+    z-index: -1;
 }
 
 }
@@ -43,6 +48,7 @@
 .btn-default:hover,.btn-default {
     font-size: 700%;
     text-shadow: 2px 2px white;
+    
 
 }
 .display-3  {
@@ -77,10 +83,7 @@ img  {
     width: 100%;
     height: auto;
 }
-body{ 
-    background-image: linear-gradient(coral, black,coral);
-    height: 960px;
-}
+
 .wordside {
     height: auto;
     background: rgb(0, 0, 0); /* Fallback color */
@@ -99,5 +102,22 @@ body{
     margin: 0px;
     padding: 0;
     margin-top: -100px;
+    
+    
+}
+.randombtn:hover  {
+    margin: 0px;
+    padding: 0;
+    margin-top: -100px;
+    
+    
+}
+.pronunciation-sound   {
+    color: white;
+    text-shadow: 2px 2px coral;
+}
+#pronunciation {
+    color: hotpink;
+    text-shadow: white;
     
 }
