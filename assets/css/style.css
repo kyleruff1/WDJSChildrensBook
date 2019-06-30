@@ -154,9 +154,8 @@ h5  {
     text-shadow: 2px 2px hotpink;
 }
 
-#submit {
-    background-color: coral
-
+label {
+    color: white;
 }
 
 .pronunciation-sound    {
@@ -181,4 +180,13 @@ h5  {
 .btn-primary {
     background-color: coral;
 }
-
+.modal-title{
+    color: black;
+    text-shadow: none;
+}
+.modal-body{
+    margin: auto;
+}
+#name{
+    padding-left: 10px;
+}
