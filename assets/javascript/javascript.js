@@ -35,6 +35,8 @@ var randomtext;
 var sound;
 var firstCharInSound;
 var audio = new Audio();
+//firebase variables
+var score;
 
 //});
 //body on click function 
@@ -48,7 +50,7 @@ $("body").on("click", ".letter", function () {
         randomLetterClick();
 
         //giphy API
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -89,7 +91,7 @@ $("body").on("click", ".letter", function () {
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#bigletter").html(userClick.toUpperCase() + random.substr(1));
             // $("#randomword").html("<h3>" + random +"</h3>");
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
 
             $.ajax({
                 url: queryURL,
@@ -117,23 +119,29 @@ $("body").on("click", ".letter", function () {
     function randomLetterClick() {
         randomArray = alphabet[Math.floor(Math.random() * alphabet.length)];
         generated = randomArray[0].charAt(0).toUpperCase();
+        console.log(generated);
 
         randomtext = randomArray[Math.floor(Math.random() * randomArray.length)];
         $("#bigletter").html(generated + randomtext.substr(1));
 
 
         var inputDiv = `<h5>Write a word that starts with ${generated}</h5>
-        <input type="text" class="form-control" id='user-word'>
-        <button id='submit'>Go!</button>`;
+                            <input type="text" class="form-control" id='user-word'>
+                            <button id='submit'>Go!</button>`;
+
         $('#user-input-div').html(inputDiv);
 
         //when user submits personal input 
         $("#submit").on("click", function (event) {
             event.preventDefault();
             var userInput = $("#user-word").val();
-            if (userInput.charAt(0) === generated) {
+            console.log(userInput.charAt(0).toUpperCase());
+
+
+            //I BROKE THIS CODE!!! PLEASE HELP!            
+            if(userInput.charAt(0).toUpperCase() == generated) {
                 //Giphy API
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
                 $.ajax({
                     url: queryURL,
                     method: "GET"
@@ -157,9 +165,8 @@ $("body").on("click", ".letter", function () {
                 });
 
             } else {
-
-                //TRY AGAIN MODAL HERE
-                alert("try agagin");
+                //CAN'T GET MODAL TO TURN OFF AFTER ITS SHOWN!!!
+                $("#wrong-answer").modal("toggle");
 
             };
         });
@@ -171,7 +178,7 @@ $("body").on("click", ".letter", function () {
         var userInput = $("#user-word").val().toLowerCase();
         if (userInput.charAt(0) === userClick) {
             //Giphy API
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&limit=1";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -197,7 +204,7 @@ $("body").on("click", ".letter", function () {
 
         } else {
             //TRY AGAIN MODAL HERE
-            alert("try agagin");
+            $("#wrong-answer").modal("toggle");
         };
     });
 
@@ -236,16 +243,17 @@ firebase.auth().onAuthStateChanged(function (user) {
         var user = firebase.auth().currentUser;
         //IF NO USER NAME in database, prompt with this modal
         if (!user.displayName) {
-            console.log(user.email);
+            console.log(user.email + "doesn't have a username yet");
             //toggles the modal on 
             $("#name-modal").modal("toggle");
             //on submitting the user name 
             $("#submit-name").on("click", function () {
                 var name = $("#name").val();
-                console.log(name);
+                score = 0;
                 //submit to firebase 
                 user.updateProfile({
-                    displayName: name
+                    displayName: name,
+                    score: score
                 }).then(function(){
                     //profile sucessfully updated 
                     console.log("sucessful profile update");
@@ -255,9 +263,12 @@ firebase.auth().onAuthStateChanged(function (user) {
 
                 //toggles the modal off 
                 $("#name-modal").modal("toggle");
+
             });
         }
         console.log(user.displayName);
+        console.log(user.score);
+        
     } else {
         $("#hidden").attr("class", "d-none")
         $("#login").attr("class", "container d-block")
@@ -290,12 +301,16 @@ function signUp() {
         var errorMessage = error.message;
         $(".error-message").html(errorMessage)
     });
+    //when a new user signs up. update their profile with a score of 0 !!! 
 
 };
+
+
 
 function leaderBoard() {
     //display leader board with the username and the rank of highscores 
     //create table with user highscores 
+
 };
 
 
