@@ -21,7 +21,7 @@ body{
     text-align: center;
     background-image: url(../images/jacksons.jpg);
     background-position: top;
-    background-size: 79%;
+    background-size: 50%;
     color: coral;
     text-shadow: 2px 2px white;
     font-family: aclonica, sans-serif;
@@ -29,12 +29,17 @@ body{
 }
 .btn-toolbar {
     width: 100%;
-    padding-left: 15%;
-    padding-right: 15%;
-    height: 300px;
+    margin-top: 80px;
+    padding-left: 5%;
+    padding-right: 5%;
     text-shadow: 2px 2px white;
-    color: white;
+    height: 100px;
+    background-color: lightgray;
 }
+.alphabet-image:hover{
+    width: 50px;
+}
+
 .container {
     text-align: center;
     width: 100%;
@@ -42,13 +47,16 @@ body{
     background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 
 }
+
+/* 
+button styling for regular letters 
 .btn-default:hover,.btn-default {
     font-size: 700%;
     text-shadow: 2px 2px white;
     z-index: 0;
     border: none !important;
 
-}
+} */
 .display-3  {
     margin-bottom: -100px;
 }
@@ -101,11 +109,7 @@ img  {
 .randombtn  {
     margin: 0px;
     padding: 0;
-    margin-top: -100px;
-    z-index: 1 !important;
-    float: initial;
-    
-    
+    margin-top: -100px;  
 }
 .randombtn:hover  {
     margin: 0px;
@@ -189,4 +193,14 @@ label {
 }
 #name{
     padding-left: 10px;
+}
+#signin-buttons{
+    float: left;
+}
+
+footer{
+    position: relative;
+    width: 100%;
+    left: 0; 
+    bottom: 0;
 }
