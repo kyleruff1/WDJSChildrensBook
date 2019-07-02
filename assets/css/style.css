@@ -112,13 +112,13 @@ img  {
 #randomletter {
     align-self: center;
     background-color: coral;
-
+    height: 200%;
 }
-.randombtn  {
+.btn-letter  {
     margin: 0px;
     padding: 0;
-    height: 90px;
-    width: auto;
+    height: 200%;
+
 
 }
 .pronunciation-sound  {
@@ -144,10 +144,11 @@ img  {
 
 
 h5  {
-    color: coral;
+    color: black;
     text-shadow: white;
     text-align: center;
     text-shadow: 2px 2px black;
+    font-size: 200%;
 }
 
 .form-group {
