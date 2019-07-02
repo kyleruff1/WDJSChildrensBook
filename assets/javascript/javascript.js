@@ -249,7 +249,7 @@ var firebaseConfig = {
     authDomain: "alphabet-game-b55ff.firebaseapp.com",
     databaseURL: "https://alphabet-game-b55ff.firebaseio.com",
     projectId: "alphabet-game-b55ff",
-    storageBucket: "",
+    storageBucket: "wdjs-project1.appspot.com",
     messagingSenderId: "95198064143",
     appId: "1:95198064143:web:cd1469f6b2050c2b"
 };
@@ -260,7 +260,7 @@ var database = firebase.database();
 firebase.auth().onAuthStateChanged(function (user) {
 
     if (user) {
-
+        defaultProfilePic();
         $("#hidden").attr("class", "d-block")
         $("#login").attr("class", "container d-none")
         var user = firebase.auth().currentUser;
@@ -350,3 +350,64 @@ firebase.auth().onAuthStateChanged(function (user) {
     $("#user-email").text(user.email);
     $("#user-ranking").text("still have to do");
 })
+
+
+var updateFile = $(".custom-file-label")
+var browseButton = $(".custom-file-input")
+
+
+var file;
+var task;
+
+
+
+// image variables
+var storageRef;
+var imagesRef;
+var fileName;
+var spaceRef;
+var grabImage;
+var urlName;
+
+
+
+
+
+browseButton.change(function(e){
+    urlName = browseButton.val().match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]
+    updateFile.text(urlName)
+    console.log(urlName);
+    $("#upload-button").click(function(){
+    // get current user
+    user = firebase.auth().currentUser;
+    // get file
+    file = e.target.files[0];
+    // create storage ref
+    storageRef = firebase.storage().ref(user.displayName + '/profile_picture/' + file.name)
+    // Upload file
+    task = storageRef.put(file);
+    console.log(task);
+        storageRef = firebase.storage().ref();
+        imagesRef = storageRef.child("profile_picture/");
+        fileName = urlName;
+        spaceRef = imagesRef.child(fileName);
+        grabImage = storageRef.child(user.displayName + "/" + spaceRef.location.path);
+        grabImage.getDownloadURL().then(function(url){
+            $("#profile-picture").attr("src", url)
+        })   
+
+    })
+});
+
+
+function defaultProfilePic(){
+    var storageRef = firebase.storage().ref();
+    var imagesRef = storageRef.child("profile_picture/");
+    var fileName = "placeholderprofileimage.png";
+    var spaceRef = imagesRef.child(fileName);
+    var grabImage = storageRef.child("defaultImage/" + spaceRef.location.path)
+    
+    grabImage.getDownloadURL().then(function(url){
+        $("#profile-picture").attr("src", url);
+    })   
+};
