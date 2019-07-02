@@ -317,3 +317,15 @@ function leaderBoard() {
 
 
 //});
+
+// on click show modal w/ user info
+firebase.auth().onAuthStateChanged(function (user) {
+    $("#profilebtn").click(function(){
+        $("#profile-modal").modal("toggle")
+    })
+    var user = firebase.auth().currentUser;
+    $(".modal-title-profile").text(user.displayName + "'s Profile" )
+    $("#user-name").text(user.displayName);
+    $("#user-email").text(user.email);
+    $("#user-ranking").text("still have to do");
+})
