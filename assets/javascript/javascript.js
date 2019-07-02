@@ -127,19 +127,23 @@ $("body").on("click", ".letter", function () {
 
         var inputDiv = `<h5>Write a word that starts with ${generated}</h5>
                             <input type="text" class="form-control" id='user-word'>
-                            <button id='submit'>Go!</button>`;
+                            <button id='submit-random'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
 
         //when user submits personal input 
-        $("#submit").on("click", function (event) {
+        $("#submit-random").on("click", function (event) {
             event.preventDefault();
             var userInput = $("#user-word").val();
             console.log(userInput.charAt(0).toUpperCase());
+           let userFirstLetter = userInput.charAt(0).toUpperCase();
+
+            console.log(generated);
 
 
             //I BROKE THIS CODE!!! PLEASE HELP!            
-            if(userInput.charAt(0).toUpperCase() == generated) {
+            if(userFirstLetter === generated) {
+                console.log("made it")
                 //Giphy API
                 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
                 $.ajax({
@@ -164,9 +168,8 @@ $("body").on("click", ".letter", function () {
                     $("#definition").text(response[0].shortdef[0]);
                 });
 
-            } else {
-                //CAN'T GET MODAL TO TURN OFF AFTER ITS SHOWN!!!
-                $("#wrong-answer").modal("toggle");
+            } else if(userFirstLetter !== generated){
+                $("#wrong-answer-random").modal("toggle");
 
             };
         });
