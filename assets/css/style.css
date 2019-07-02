@@ -8,7 +8,6 @@ body{
 }
 .row {
     margin: auto;
-    width: 70%;
     padding: 0px;
     background: rgb(0, 0, 0); /* Fallback color */
     background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
@@ -218,5 +217,9 @@ footer{
 }
 .btn    {
     size: 200%;
+}
+
+#player {
+    width: 100%;
 }
 
