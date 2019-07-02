@@ -147,41 +147,43 @@ $("body").on("click", ".letter", function () {
                     method: "GET"
                 }).then(function (response) {
                     
-                    console.log(response);
-                    console.log(userInput);
-                    //if no response is returned or undefined 
-                    cleanedResponse = response[0].hwi.hw;
-                    if(response.length <= 0|| userInput !== response[0].meta.id){
-                        $("#wrong-answer-random").modal("toggle");
-                        console.log(cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase());
-                    }else if(userInput.toLowerCase() == cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase()){
+                    console.log(response[0]);
 
-                        console.log("made it " +  cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase());
-                        //Giphy API
-                        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
-                        $.ajax({
-                            url: queryURL,
-                            method: "GET"
-                        }).then(function (response) {
-                            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
-                        });
-    
-                        //Dictionary API
-                        var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
-                        $.ajax({
-                            url: dictionaryURL,
-                            method: "GET"
-                        }).then(function (response) {
-                            $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
-    
-                            $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
-                            sound = response[0].hwi.prs[0].sound.audio
-                            firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
-    
-                            $("#definition").text(response[0].shortdef[0]);
-                        });
+                    //if the length of the response is less than or equal to zero OR the user input doesn't equal the 1st value in array
+                    if(response.length <= 0 || userInput !== response[0]){
+                        $("#wrong-answer-dict").modal("toggle");
 
+                    }else if(userInput === response[0].hwi.hw){
+                        
+                        console.log("you picked a word in the dictionary");
                     };
+
+                    //     console.log("made it " +  cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase());
+                    //     //Giphy API
+                    //     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
+                    //     $.ajax({
+                    //         url: queryURL,
+                    //         method: "GET"
+                    //     }).then(function (response) {
+                    //         $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                    //     });
+    
+                    //     //Dictionary API
+                    //     var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                    //     $.ajax({
+                    //         url: dictionaryURL,
+                    //         method: "GET"
+                    //     }).then(function (response) {
+                    //         $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+    
+                    //         $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                    //         sound = response[0].hwi.prs[0].sound.audio
+                    //         firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+    
+                    //         $("#definition").text(response[0].shortdef[0]);
+                    //     });
+
+                    // };
 
                     
                 });
@@ -200,6 +202,9 @@ $("body").on("click", ".letter", function () {
         event.preventDefault();
         var userInput = $("#user-word").val().toLowerCase();
         if (userInput.charAt(0) === userClick) {
+
+            //IF USER INPUT IS IN THE DICTIONARY, PRINT TO SCREEN, IF NOT, THROW MODAL ERROR
+
             //Giphy API
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
             $.ajax({
