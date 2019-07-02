@@ -52,6 +52,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <img id="profile-picture" src="">
                     <h1>Username: </h1>
                     <h2 id="user-name"></h2>
                     <h1>Email: </h1>
@@ -61,6 +62,17 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="submit-name">View Leaderboard</button>
+
+                    <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="upload-button">Upload</span>
+                    </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -277,7 +289,7 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-database-app.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
