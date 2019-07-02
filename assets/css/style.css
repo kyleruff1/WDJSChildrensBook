@@ -1,11 +1,14 @@
 body{ 
-    background-image: radial-gradient(circle, coral, black 50%);;
+    background-image: url(/assets/images/download.png);
+    background-size: 150%;
     height: 960px;
+    
+  
+
 }
 .row {
     margin: auto;
-    width: 70%;
-    padding: 10px;
+    padding: 0px;
     background: rgb(0, 0, 0); /* Fallback color */
     background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 }
@@ -21,10 +24,11 @@ body{
     text-align: center;
     background-image: url(../images/jacksons.jpg);
     background-position: top;
-    background-size: 50%;
+    background-size: 100%;
     color: coral;
     text-shadow: 2px 2px white;
     font-family: aclonica, sans-serif;
+    height: 460px;
 }
 .container {
     text-align: center;
@@ -61,19 +65,22 @@ body{
 #bigletter  {
     font-family: fredericka-the-great, sans-serif;
     font-weight: 400;
-    font-size: 100%;
+    font-size: 200%;
     margin: auto;
     width: 70%;
     height: 100px;
     padding: 10px;
-    text-shadow: 2px 2px white;
+    text-shadow: 2px 2px black;
     text-align: center;
+    color: white;
+
 }
 
 #bigletterheader {
     height: 100%;
     font-size: 500%;
     text-align: center;
+    margin: 0%;
 }
 
 h3 {
@@ -85,6 +92,9 @@ h3 {
 img  {
     width: 100%;
     height: auto;
+}
+.definition {
+    margin: 0%;
 }
 
 .wordside {
@@ -101,39 +111,43 @@ img  {
 #randomletter {
     align-self: center;
     background-color: coral;
+    height: 200%;
+}
+.btn-letter  {
+    margin: 0px;
+    padding: 0;
+    height: 200%;
+
 
 }
-.randombtn  {
-    margin: 0px;
-    padding: 0;
-    margin-top: -100px;  
-}
-.randombtn:hover  {
-    margin: 0px;
-    padding: 0;
-    margin-top: -100px;
-    z-index: 1 !important;    ;
-    
-    
+.pronunciation-sound  {
+    size: 300%;
 }
 
 #pronunciation {
     color: white;
     text-align: center;
-    
+    padding-top: 100px;
+    text-shadow: 2px 2px black;
+    font-size: 200%;
 }
 
 #definition {
     color: white;
     text-align: center;
+    font-size: 200%;
+    text-shadow: 2px 2px black;
+    font-family: aclonica, sans-serif;
 
 }
 
+
 h5  {
-    color: coral;
+    color: black;
     text-shadow: white;
     text-align: center;
     text-shadow: 2px 2px black;
+    font-size: 200%;
 }
 
 .form-group {
@@ -200,4 +214,10 @@ footer{
     width: 100%;
     left: 0; 
     bottom: 0;
+}
+.btn    {
+    size: 200%;
+}
+#player {
+    width: 100%;
 }

@@ -23,7 +23,7 @@ var u =["unicorn", "urchin", "umbrella", "university", "utensil", "uganda", "udd
 var v =["vulture", "vinegar", "vase", "video", "volcano", "vegetable", "valentine", "vulture", "valet", "vaccine"];
 var w =["walrus", "weasel", "water", "wax", "wig", "walrus", "wagon", "waffles", "wheel", "web"];
 var x =["xylophone"]; // having trouble finding any letters that start with "X" that work with what we're doing
-var y =["yak", "yacht", "yuppie", "yolk", "yoga", "yard", "yam", "yarn", "year", "yield"];
+var y =["yarn", "yacht", "yuppie", "yolk", "yoga", "yard", "yam", "yarn", "year", "yield"];
 var z =["zebra", "zero", "zipper", "zinnia", "zucchini", "zither","zig-zag", "zephyr"];
 var alphabet = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z];
 var random;
@@ -338,3 +338,15 @@ function leaderBoard() {
 
 
 //});
+
+// on click show modal w/ user info
+firebase.auth().onAuthStateChanged(function (user) {
+    $("#profilebtn").click(function(){
+        $("#profile-modal").modal("toggle")
+    })
+    var user = firebase.auth().currentUser;
+    $(".modal-title-profile").text(user.displayName + "'s Profile" )
+    $("#user-name").text(user.displayName);
+    $("#user-email").text(user.email);
+    $("#user-ranking").text("still have to do");
+})
