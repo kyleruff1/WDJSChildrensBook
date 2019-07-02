@@ -20,27 +20,27 @@
 </head>
 
 <body>
-    <!--Modal-->
-        <div class="modal" tabindex="-1" role="dialog" id="name-modal">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">What's your name?</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!--Name Modal-->
+    <div class="modal" tabindex="-1" role="dialog" id="name-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">What's your name?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" id="name" placeholder="Name">
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" id="submit-name">Save changes</button>
-                    </div>
-                  </div>
+                    </button>
                 </div>
-              </div>
+                <div class="modal-body">
+                    <input type="text" id="name" placeholder="Name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submit-name">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
+    <!--Log in-->
     <div class="container d-none" id="login">
         <div class="form-group">
             <label for="">Email</label>
@@ -48,8 +48,10 @@
             <label for="">Password</label>
             <input type="password" class="form-control col-3 mx-auto" id="password-login" placeholder="password">
             <br>
-            <button onclick="login()" class="btn btn-primary" role="button">Login</button>
-            <button onclick="signUp()" class="btn btn-primary" role="button">Sign Up</button>
+            <div id="signin-buttons">
+                <button onclick="login()" class="btn btn-primary" role="button">Login</button>
+                <button onclick="signUp()" class="btn btn-primary" role="button">Sign Up</button>
+            </div>
             <p class="error-message"></p>
         </div>
     </div>
@@ -58,13 +60,41 @@
     <div id="hidden" class="d-none">
 
         <div class="jumbotron">
+            <!--Login Button-->
             <button onclick="logOut()" id="logoutbtn">Logout</button>
+            <!--Title-->
             <h1 class="display-3 font-weight-bold">Learn the Alphabet</h1>
             <div class="container">
                 <div class="btn-toolbar">
                     <div class="btn-group btn-group-sm">
-                        <button class="btn btn-default letter" id="a">A</button>
-                        <button class="btn btn-default letter" id="b">B</button>
+                        <button class="btn btn-default letter" id="a"><img src="assets/images/alphabet/a.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="b"><img src="assets/images/alphabet/b.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="c"><img src="assets/images/alphabet/c.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="d"><img src="assets/images/alphabet/d.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="e"><img src="assets/images/alphabet/e.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="f"><img src="assets/images/alphabet/f.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="g"><img src="assets/images/alphabet/g.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="h"><img src="assets/images/alphabet/h.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="i"><img src="assets/images/alphabet/i.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="j"><img src="assets/images/alphabet/j.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="k"><img src="assets/images/alphabet/k.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="l"><img src="assets/images/alphabet/l.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="m"><img src="assets/images/alphabet/m.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="n"><img src="assets/images/alphabet/n.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="o"><img src="assets/images/alphabet/o.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="p"><img src="assets/images/alphabet/p.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="q"><img src="assets/images/alphabet/q.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="r"><img src="assets/images/alphabet/r.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="s"><img src="assets/images/alphabet/s.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="t"><img src="assets/images/alphabet/t.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="u"><img src="assets/images/alphabet/u.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="v"><img src="assets/images/alphabet/v.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="w"><img src="assets/images/alphabet/w.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="x"><img src="assets/images/alphabet/x.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="y"><img src="assets/images/alphabet/y.png" class="alphabet-image"></button>
+                        <button class="btn btn-default letter" id="z"><img src="assets/images/alphabet/z.png" class="alphabet-image"></button>
+
+                        <!-- <button class="btn btn-default letter" id="b">B</button>
                         <button class="btn btn-default letter" id="c">C</button>
                         <button class="btn btn-default letter" id="d">D</button>
                         <button class="btn btn-default letter" id="e">E</button>
@@ -88,62 +118,88 @@
                         <button class="btn btn-default letter" id="w">W</button>
                         <button class="btn btn-default letter" id="x">X</button>
                         <button class="btn btn-default letter" id="y">Y</button>
-                        <button class="btn btn-default letter" id="z">Z</button>
+                        <button class="btn btn-default letter" id="z">Z</button> -->
                     </div>
                 </div>
                 <br>
                 <br>
                 <br>
                 <br>
+                <br>
+                <!--random button-->
                 <div class="randombtn">
-                    <button class="btn btn-danger" id="randomletter">Random</button>
+                    <button class="btn btn-danger letter" id="randomletter">Random</button>
                 </div>
             </div>
             </p>
         </div>
-
+        <!--Left Side-->
         <div class="row">
             <div class="col-lg-6" style="background: rgb(0, 0, 0)">
                 <div class="playerside">
                     <div id="player">
-
+                        <!--print gifs inside this div-->
                     </div>
-                    <div id="videodesc">
-
+                    <div id="leaderboard">
+                        <!--leaderboard inside this div-->
                     </div>
                 </div>
-
             </div>
+            <!--Right Side-->
             <div class="col-lg-6" style="background: rgba(0, 0, 0, 0)">
                 <div class="wordside">
                     <h1 id="bigletterheader">
                         <div id="bigletter">
+                            <!--print word inside this div-->
+                        </div>
                     </h1>
-
                 </div>
-             
+
                 <div id="pronunciation">
-                </div>    <div class="pronunciation-sound fas fa-headphones-alt d-none">
-                        
-                      
-    
-                    </div>
-                <p id="definition"></p>
-
-
-
+                    <!--print pronumciation inside this div-->
+                </div>
+                <div class="pronunciation-sound fas fa-headphones-alt d-none">
+                </div>
+                <p id="definition">
+                    <!--print definition inside this div-->
+                </p>
                 <br>
                 <div id="user-input-div">
+                    <!--user input and submit button-->
                 </div>
-
-
             </div>
         </div>
     </div>
+
     </div>
 
+        <!-- Wrong answer Modal-->
+        <div class="modal" tabindex="-1" role="dialog" id="wrong-answer">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Whoops!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Try again to add a word that starts with the correct letter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <br>
+    <br>
+    <br>
 
-
+    <!--Alphabet letter icon author shoutout-->
+    <footer>
+        <div>Icons made by<a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from
+            <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
+                href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
+                3.0 BY</a></div>
+    </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
