@@ -138,6 +138,7 @@ $("body").on("click", ".letter", function () {
             var userInput = $("#user-word").val();
 
             let userFirstLetter = userInput.charAt(0).toUpperCase();
+            //if the 1st letter in the users input matches the first letter for the generated word
             if(userFirstLetter === generated) {
                 console.log(userFirstLetter);
                 console.log(generated);
@@ -150,53 +151,51 @@ $("body").on("click", ".letter", function () {
                     console.log(response[0]);
 
                     //if the length of the response is less than or equal to zero OR the user input doesn't equal the 1st value in array
-                    if(response.length <= 0 || userInput !== response[0]){
+                    if(response.length <= 0 || userInput !== response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
                         $("#wrong-answer-dict").modal("toggle");
 
-                    }else if(userInput === response[0].hwi.hw){
+                    }else if(userInput.toLowerCase() === response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                        console.log(userInput);
+                        console.log(response[0].hwi.hw.replace("*", "").toLowerCase());
                         
                         console.log("you picked a word in the dictionary");
-                    };
 
-                    //     console.log("made it " +  cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase());
-                    //     //Giphy API
-                    //     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
-                    //     $.ajax({
-                    //         url: queryURL,
-                    //         method: "GET"
-                    //     }).then(function (response) {
-                    //         $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
-                    //     });
-    
-                    //     //Dictionary API
-                    //     var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
-                    //     $.ajax({
-                    //         url: dictionaryURL,
-                    //         method: "GET"
-                    //     }).then(function (response) {
-                    //         $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
-    
-                    //         $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
-                    //         sound = response[0].hwi.prs[0].sound.audio
-                    //         firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
-    
-                    //         $("#definition").text(response[0].shortdef[0]);
-                    //     });
+                        //Giphy API
+                        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
+                        $.ajax({
+                            url: queryURL,
+                            method: "GET"
+                        }).then(function (response) {
+                            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                        });
 
-                    // };
-
-                    
+                        //Dictionary API
+                        var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                        $.ajax({
+                            url: dictionaryURL,
+                            method: "GET"
+                        }).then(function (response) {
+                            $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+    
+                            $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                            sound = response[0].hwi.prs[0].sound.audio
+                            firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+    
+                            $("#definition").text(response[0].shortdef[0]);
+                        });
+                    };     
                 });
-  
 
-
+              //if the 1st letter in the users input doesn't match the first letter for the generated word
             } else{
+                //show try again modal 
                 $("#wrong-answer-random").modal("toggle");
-
             };
         });
 
     };//end of randomLetterClick function
+
+    
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
