@@ -372,7 +372,6 @@ var urlName;
 
 
 
-
 browseButton.change(function(e){
     urlName = browseButton.val().match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]
     updateFile.text(urlName)
@@ -387,14 +386,7 @@ browseButton.change(function(e){
     // Upload file
     task = storageRef.put(file);
     console.log(task);
-        storageRef = firebase.storage().ref();
-        imagesRef = storageRef.child("profile_picture/");
-        fileName = urlName;
-        spaceRef = imagesRef.child(fileName);
-        grabImage = storageRef.child(user.displayName + "/" + spaceRef.location.path);
-        grabImage.getDownloadURL().then(function(url){
-            $("#profile-picture").attr("src", url)
-        })   
+    uploadProfilePic();
 
     })
 });
@@ -406,8 +398,21 @@ function defaultProfilePic(){
     var fileName = "placeholderprofileimage.png";
     var spaceRef = imagesRef.child(fileName);
     var grabImage = storageRef.child("defaultImage/" + spaceRef.location.path)
-    
+
     grabImage.getDownloadURL().then(function(url){
         $("#profile-picture").attr("src", url);
+        $("#mini-profile-pic").attr("src", url)
     })   
 };
+
+function uploadProfilePic(){
+    storageRef = firebase.storage().ref();
+    imagesRef = storageRef.child("profile_picture/");
+    fileName = urlName;
+    spaceRef = imagesRef.child(fileName);
+    grabImage = storageRef.child(user.displayName + "/" + spaceRef.location.path);
+    grabImage.getDownloadURL().then(function(url){
+        $("#profile-picture").attr("src", url)
+        $("#mini-profile-pic").attr("src", url)
+    })   
+}
