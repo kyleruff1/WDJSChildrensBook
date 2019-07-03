@@ -37,7 +37,21 @@ var sound;
 var firstCharInSound;
 var audio = new Audio();
 //firebase variables
-var score;
+// var score = 0;
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyBmuHrb-UJHbNvtig-TS0Gtr8EvtRC4ZMk",
+    authDomain: "wdjs-project1.firebaseapp.com",
+    databaseURL: "https://wdjs-project1.firebaseio.com",
+    projectId: "wdjs-project1",
+    storageBucket: "wdjs-project1.appspot.com",
+    messagingSenderId: "541094236058",
+    appId: "1:541094236058:web:850edb60659e4742"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
 
 //});
 //body on click function 
@@ -140,9 +154,23 @@ $("body").on("click", ".letter", function () {
             let userFirstLetter = userInput.charAt(0).toUpperCase();
             //if the 1st letter in the users input matches the first letter for the generated word
             if(userFirstLetter === generated) {
+                var user = firebase.auth().currentUser;
+                var score;
+                // call firebase for stored score
+                var updatedCounter = firebase.database().ref(user.displayName + "/");
+                updatedCounter.on("value", function(snapshot){
+                    console.log(snapshot.val());
+                    score = snapshot.val().score
+                });
+                // increment score by 1 every time conditional is met
+                score++
+                database.ref(user.displayName + "/").update({
+                    score: score
+                })
                 console.log(userFirstLetter);
                 console.log(generated);
                 var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                console.log(score);
                 $.ajax({
                     url: dictionaryURL,
                     method: "GET"
@@ -202,7 +230,23 @@ $("body").on("click", ".letter", function () {
         var userInput = $("#user-word").val().toLowerCase();
         if (userInput.charAt(0) === userClick) {
 
+
             //IF USER INPUT IS IN THE DICTIONARY, PRINT TO SCREEN, IF NOT, THROW MODAL ERROR
+
+
+            var user = firebase.auth().currentUser;
+            var score;
+                
+            // call firebase for stored score
+            var updatedCounter = firebase.database().ref(user.displayName + "/");
+            updatedCounter.on("value", function(snapshot){
+                score = snapshot.val().score
+            })
+            // increment score by 1 every time conditional is met
+            score++
+            database.ref(user.displayName + "/").update({
+                score: score
+            })
 
             //Giphy API
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
@@ -246,21 +290,6 @@ $(".pronunciation-sound").on("click", function () {
     audio.play();
 });
 
-
-// Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyAJ3uxOWIFQT98C8tXQ3DY8SgvQSfkXWKY",
-    authDomain: "alphabet-game-b55ff.firebaseapp.com",
-    databaseURL: "https://alphabet-game-b55ff.firebaseio.com",
-    projectId: "alphabet-game-b55ff",
-    storageBucket: "wdjs-project1.appspot.com",
-    messagingSenderId: "95198064143",
-    appId: "1:95198064143:web:cd1469f6b2050c2b"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
-
 firebase.auth().onAuthStateChanged(function (user) {
 
     if (user) {
@@ -276,18 +305,28 @@ firebase.auth().onAuthStateChanged(function (user) {
             //on submitting the user name 
             $("#submit-name").on("click", function () {
                 var name = $("#name").val();
-                score = 0;
+                // score = 0;
                 //submit to firebase 
                 user.updateProfile({
                     displayName: name,
-                    score: score
                 }).then(function(){
                     //profile sucessfully updated 
                     console.log("sucessful profile update");
+                    // update modal with user displayname
+                    $(".modal-title-profile").text(user.displayName + "'s Profile" )
+                    $("#user-name").text(user.displayName);
+                    // set score to 0 after displayname is chosen
+                    database.ref(user.displayName + "/").set({
+                        score: 0
+                    })
+                    var updatedCounter = firebase.database().ref(user.displayName + "/");
+                    updatedCounter.on("value", function(snapshot){
+                        console.log(snapshot.val());
+                        $("#user-ranking").text(snapshot.val().score)
+                    });
                 },function(error){
                     //an error happened 
                 });
-
                 //toggles the modal off 
                 $("#name-modal").modal("toggle");
 
@@ -327,7 +366,6 @@ function signUp() {
         $(".error-message").html(errorMessage)
     });
     //when a new user signs up. update their profile with a score of 0 !!! 
-
 };
 
 
@@ -337,12 +375,6 @@ function leaderBoard() {
     //create table with user highscores 
 
 };
-
-
-
-
-//});
-
 // on click show modal w/ user info
 firebase.auth().onAuthStateChanged(function (user) {
     $("#profilebtn").click(function(){
@@ -352,7 +384,14 @@ firebase.auth().onAuthStateChanged(function (user) {
     $(".modal-title-profile").text(user.displayName + "'s Profile" )
     $("#user-name").text(user.displayName);
     $("#user-email").text(user.email);
-    $("#user-ranking").text("still have to do");
+    // call stored score to update profile
+    var updatedCounter = firebase.database().ref(user.displayName + "/");
+    updatedCounter.on("value", function(snapshot){
+        console.log(snapshot.val());
+        $("#user-ranking").text(snapshot.val().score)
+    })
+
+
 })
 
 
@@ -376,7 +415,6 @@ var urlName;
 
 
 
-
 browseButton.change(function(e){
     urlName = browseButton.val().match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]
     updateFile.text(urlName)
@@ -391,14 +429,7 @@ browseButton.change(function(e){
     // Upload file
     task = storageRef.put(file);
     console.log(task);
-        storageRef = firebase.storage().ref();
-        imagesRef = storageRef.child("profile_picture/");
-        fileName = urlName;
-        spaceRef = imagesRef.child(fileName);
-        grabImage = storageRef.child(user.displayName + "/" + spaceRef.location.path);
-        grabImage.getDownloadURL().then(function(url){
-            $("#profile-picture").attr("src", url)
-        })   
+    uploadProfilePic();
 
     })
 });
@@ -410,8 +441,21 @@ function defaultProfilePic(){
     var fileName = "placeholderprofileimage.png";
     var spaceRef = imagesRef.child(fileName);
     var grabImage = storageRef.child("defaultImage/" + spaceRef.location.path)
-    
+
     grabImage.getDownloadURL().then(function(url){
         $("#profile-picture").attr("src", url);
+        $("#mini-profile-pic").attr("src", url)
     })   
 };
+
+function uploadProfilePic(){
+    storageRef = firebase.storage().ref();
+    imagesRef = storageRef.child("profile_picture/");
+    fileName = urlName;
+    spaceRef = imagesRef.child(fileName);
+    grabImage = storageRef.child(user.displayName + "/" + spaceRef.location.path);
+    grabImage.getDownloadURL().then(function(url){
+        $("#profile-picture").attr("src", url)
+        $("#mini-profile-pic").attr("src", url)
+    })   
+}
