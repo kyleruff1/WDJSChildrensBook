@@ -52,15 +52,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1>Username: </h1>
-                    <h2 id="user-name"></h2>
-                    <h1>Email: </h1>
-                    <h2 id="user-email"></h2>
-                    <h1>Ranking: </h1>
-                    <h2 id="user-ranking"></h2>
+                    <img id="profile-picture" src="">
+                    <h1 class="text-center">Username: </h1>
+                    <h2 class="text-center" id="user-name"></h2>
+                    <h1 class="text-center">Email: </h1>
+                    <h2 class="text-center" id="user-email"></h2>
+                    <h1 class="text-center">Score: </h1>
+                    <h2 class="text-center" id="user-ranking"></h2>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="submit-name">View Leaderboard</button>
+
+                    <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="upload-button">Upload</span>
+                    </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -88,9 +100,10 @@
 
         <div class="jumbotron">
             <!--Login Button-->
-            <button onclick="logOut()" id="logoutbtn">Logout</button>
+            <button onclick="logOut()"  class="btn btn-primary" id="logoutbtn">Logout</button>
 
-            <button id="profilebtn">View Profile</button>
+            <img id="mini-profile-pic" src="">
+            <button id="profilebtn" class="btn btn-primary">View Profile</button>
 
             <!--Title-->
             <h1 class="display-3 font-weight-bold">Learn the Alphabet</h1>
@@ -240,12 +253,18 @@
     <br>
     <br>
 
+    <!--Alphabet letter icon author shoutout-->
+    <!-- <footer>
+        <div>Icons made by<a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from
+            <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
+                href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
+                3.0 BY</a></div>
+    </footer> -->
 
-    </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-database-app.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
