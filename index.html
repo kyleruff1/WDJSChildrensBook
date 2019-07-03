@@ -53,12 +53,12 @@
                 </div>
                 <div class="modal-body">
                     <img id="profile-picture" src="">
-                    <h1>Username: </h1>
-                    <h2 id="user-name"></h2>
-                    <h1>Email: </h1>
-                    <h2 id="user-email"></h2>
-                    <h1>Ranking: </h1>
-                    <h2 id="user-ranking"></h2>
+                    <h1 class="text-center">Username: </h1>
+                    <h2 class="text-center" id="user-name"></h2>
+                    <h1 class="text-center">Email: </h1>
+                    <h2 class="text-center" id="user-email"></h2>
+                    <h1 class="text-center">Ranking: </h1>
+                    <h2 class="text-center" id="user-ranking"></h2>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="submit-name">View Leaderboard</button>
@@ -100,9 +100,10 @@
 
         <div class="jumbotron">
             <!--Login Button-->
-            <button onclick="logOut()" id="logoutbtn">Logout</button>
+            <button onclick="logOut()"  class="btn btn-primary" id="logoutbtn">Logout</button>
 
-            <button id="profilebtn">View Profile</button>
+            <img id="mini-profile-pic" src="">
+            <button id="profilebtn" class="btn btn-primary">View Profile</button>
 
             <!--Title-->
             <h1 class="display-3 font-weight-bold">Learn the Alphabet</h1>
