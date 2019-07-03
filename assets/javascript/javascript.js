@@ -312,6 +312,11 @@ firebase.auth().onAuthStateChanged(function (user) {
                     database.ref(user.displayName + "/").set({
                         score: 0
                     })
+                    var updatedCounter = firebase.database().ref(user.displayName + "/");
+                    updatedCounter.on("value", function(snapshot){
+                        console.log(snapshot.val());
+                        $("#user-ranking").text(snapshot.val().score)
+                    });
                 },function(error){
                     //an error happened 
                 });
