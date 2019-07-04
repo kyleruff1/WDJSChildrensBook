@@ -1,7 +1,9 @@
 body{ 
-    background-image: url(/assets/images/download.png);
-    background-size: 150%;
-    height: 960px;
+    background-image: url(/assets/images/body-back.png);
+    background-size: auto;
+    height: auto;
+    
+    
     
   
 
@@ -22,13 +24,16 @@ body{
 .jumbotron {
     margin: 0%;
     text-align: center;
-    background-image: url(../images/jacksons.jpg);
+    background-image: url(/assets/images/jumboback.jpg);
     background-position: top;
     background-size: 100%;
-    color: coral;
+    color: rgb(80, 83, 255);
     text-shadow: 2px 2px white;
     font-family: aclonica, sans-serif;
-    height: 460px;
+   
+    
+    
+    
 }
 .container {
     text-align: center;
@@ -41,7 +46,7 @@ body{
     width: 100%;
     margin-top: 90px;
     text-shadow: 2px 2px white;
-    height: 100px;
+    height: 75px;
     background-color: lightgray;
 }
 .btn-group{
@@ -66,7 +71,7 @@ body{
 #bigletter  {
     font-family: fredericka-the-great, sans-serif;
     font-weight: 400;
-    font-size: 200%;
+    font-size: 75%;
     margin: auto;
     width: 70%;
     height: 100px;
@@ -106,7 +111,9 @@ img  {
 
 #logoutbtn {
     float: left;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: aclonica, sans-serif;
+    color:white;
+    background-color: coral;
 }
 
 #randomletter {
@@ -122,21 +129,21 @@ img  {
 
 }
 .pronunciation-sound  {
-    size: 300%;
+    font-size: auto;
 }
 
 #pronunciation {
     color: white;
     text-align: center;
-    padding-top: 100px;
+    padding-top: 20px;
     text-shadow: 2px 2px black;
-    font-size: 200%;
+    font-size: 150%;
 }
 
 #definition {
     color: white;
     text-align: center;
-    font-size: 200%;
+    font-size: 150%;
     text-shadow: 2px 2px black;
     font-family: aclonica, sans-serif;
 
@@ -218,4 +225,15 @@ footer{
 }
 .btn    {
     size: 200%;
+}
+
+#profilebtn {
+    background-color: coral;
+    float: right;
+    color: white;
+}
+
+h1 {
+    padding-top: 20px;
+    justify-content: center;
 }
