@@ -246,7 +246,6 @@ $("body").on("click", ".letter", function () {
                 score: score
             })
 
-
             //Giphy API
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
             $.ajax({
