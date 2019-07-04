@@ -71,7 +71,7 @@ $("body").on("click", ".letter", function () {
             method: "GET"
         }).then(function (response) {
             //print image to DOM
-            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+            $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
         });
 
         //dictionary API
@@ -93,8 +93,8 @@ $("body").on("click", ".letter", function () {
 
         var userClickUpper = userClick.toUpperCase();
         var inputDiv = `<h5>Write a word that starts with ${userClickUpper}</h5>
-                        <input type="text" class="form-control" id='user-word'>
-                        <button class="btn btn-danger" id='submit'>Go!</button>`;
+                        <input type="text" class="form-control user-inputbox" id='user-word'><br>
+                        <button class="btn btn-info" id='submit'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
     };
@@ -105,14 +105,13 @@ $("body").on("click", ".letter", function () {
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#bigletter").html(userClick.toUpperCase() + random.substr(1));
-            // $("#randomword").html("<h3>" + random +"</h3>");
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
             });
         };
     };
@@ -141,8 +140,8 @@ $("body").on("click", ".letter", function () {
 
 
         var inputDiv = `<h5>Write a word that starts with ${generated}</h5>
-                            <input type="text" class="form-control" id='user-word'>
-                            <button class="btn btn-danger" id='submit-random'>Go!</button>`;
+                            <input type="text" class="form-control user-inputbox" id='user-word'><br>
+                            <button class="btn btn-info" id='submit-random'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
 
@@ -152,6 +151,7 @@ $("body").on("click", ".letter", function () {
             var userInput = $("#user-word").val();
 
             let userFirstLetter = userInput.charAt(0).toUpperCase();
+            //if the 1st letter in the users input matches the first letter for the generated word
             if(userFirstLetter === generated) {
                 var user = firebase.auth().currentUser;
                 var score;
@@ -175,25 +175,27 @@ $("body").on("click", ".letter", function () {
                     method: "GET"
                 }).then(function (response) {
                     
-                    console.log(response);
-                    console.log(userInput);
-                    //if no response is returned or undefined 
-                    cleanedResponse = response[0].hwi.hw;
-                    if(response.length <= 0|| userInput !== response[0].meta.id){
-                        $("#wrong-answer-random").modal("toggle");
-                        console.log(cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase());
-                    }else if(userInput.toLowerCase() == cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase()){
+                    console.log(response[0]);
 
-                        console.log("made it " +  cleanedResponse.replace("*", "").replace("*", "").replace("*", "").toLowerCase());
+                    //if the length of the response is less than or equal to zero OR the user input doesn't equal the 1st value in array
+                    if(response.length <= 0 || userInput !== response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                        $("#wrong-answer-dict").modal("toggle");
+
+                    }else if(userInput.toLowerCase() === response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                        console.log(userInput);
+                        console.log(response[0].hwi.hw.replace("*", "").toLowerCase());
+                        
+                        console.log("you picked a word in the dictionary");
+
                         //Giphy API
                         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
                         $.ajax({
                             url: queryURL,
                             method: "GET"
                         }).then(function (response) {
-                            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                            $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
                         });
-    
+
                         //Dictionary API
                         var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
                         $.ajax({
@@ -208,26 +210,28 @@ $("body").on("click", ".letter", function () {
     
                             $("#definition").text(response[0].shortdef[0]);
                         });
-
-                    };
-
-                    
+                    };     
                 });
-  
 
-
+              //if the 1st letter in the users input doesn't match the first letter for the generated word
             } else{
+                //show try again modal 
                 $("#wrong-answer-random").modal("toggle");
-
             };
         });
 
     };//end of randomLetterClick function
 
+    
+
     $("#submit").on("click", function (event) {
         event.preventDefault();
         var userInput = $("#user-word").val().toLowerCase();
         if (userInput.charAt(0) === userClick) {
+
+            //IF USER INPUT IS IN THE DICTIONARY, PRINT TO SCREEN, IF NOT, THROW MODAL ERROR
+
+
             var user = firebase.auth().currentUser;
             var score;
                 
@@ -241,13 +245,14 @@ $("body").on("click", ".letter", function () {
             database.ref(user.displayName + "/").update({
                 score: score
             })
+
             //Giphy API
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + " class='gif-img'>");
             });
 
             //Dictionary API
@@ -362,8 +367,19 @@ function signUp() {
 };
 
 
-
+leaderBoard();
 function leaderBoard() {
+    database.ref().on("value", function(snapshot){
+        // $(".leaderboard").empty();
+        console.log(snapshot);
+    })
+
+
+    $("#view-lb").on("click", function(){
+        $("#profile-modal").modal("toggle");
+        $("#leaderboard-modal").modal("toggle");
+
+    });
     //display leader board with the username and the rank of highscores 
     //create table with user highscores 
 
