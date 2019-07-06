@@ -30,13 +30,28 @@ var random;
 var randomArray;
 var generated;
 var randomtext;
+let cleanedResponse;
 
 // prounounce variables
 var sound;
 var firstCharInSound;
 var audio = new Audio();
 //firebase variables
-var score;
+// var score = 0;
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyBmuHrb-UJHbNvtig-TS0Gtr8EvtRC4ZMk",
+    authDomain: "wdjs-project1.firebaseapp.com",
+    databaseURL: "https://wdjs-project1.firebaseio.com",
+    projectId: "wdjs-project1",
+    storageBucket: "wdjs-project1.appspot.com",
+    messagingSenderId: "541094236058",
+    appId: "1:541094236058:web:850edb60659e4742"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
 
 //});
 //body on click function 
@@ -56,7 +71,7 @@ $("body").on("click", ".letter", function () {
             method: "GET"
         }).then(function (response) {
             //print image to DOM
-            $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+            $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
         });
 
         //dictionary API
@@ -78,8 +93,8 @@ $("body").on("click", ".letter", function () {
 
         var userClickUpper = userClick.toUpperCase();
         var inputDiv = `<h5>Write a word that starts with ${userClickUpper}</h5>
-                        <input type="text" class="form-control" id='user-word'>
-                        <button id='submit'>Go!</button>`;
+                        <input type="text" class="form-control user-inputbox" id='user-word'><br>
+                        <button class="btn btn-info" id='submit'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
     };
@@ -90,14 +105,13 @@ $("body").on("click", ".letter", function () {
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#bigletter").html(userClick.toUpperCase() + random.substr(1));
-            // $("#randomword").html("<h3>" + random +"</h3>");
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
             });
         };
     };
@@ -126,8 +140,8 @@ $("body").on("click", ".letter", function () {
 
 
         var inputDiv = `<h5>Write a word that starts with ${generated}</h5>
-                            <input type="text" class="form-control" id='user-word'>
-                            <button id='submit-random'>Go!</button>`;
+                            <input type="text" class="form-control user-inputbox" id='user-word'><br>
+                            <button class="btn btn-info" id='submit-random'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
 
@@ -135,58 +149,110 @@ $("body").on("click", ".letter", function () {
         $("#submit-random").on("click", function (event) {
             event.preventDefault();
             var userInput = $("#user-word").val();
-            console.log(userInput.charAt(0).toUpperCase());
-           let userFirstLetter = userInput.charAt(0).toUpperCase();
 
-            console.log(generated);
-
-
-            //I BROKE THIS CODE!!! PLEASE HELP!            
+            let userFirstLetter = userInput.charAt(0).toUpperCase();
+            //if the 1st letter in the users input matches the first letter for the generated word
             if(userFirstLetter === generated) {
-                console.log("made it")
-                //Giphy API
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-                    $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                var user = firebase.auth().currentUser;
+                var score;
+                // call firebase for stored score
+                var updatedCounter = firebase.database().ref(user.displayName + "/");
+                updatedCounter.on("value", function(snapshot){
+                    console.log(snapshot.val());
+                    score = snapshot.val().score
                 });
-
-                //Dictionary API
+                // increment score by 1 every time conditional is met
+                score++
+                database.ref(user.displayName + "/").update({
+                    score: score
+                })
+                console.log(userFirstLetter);
+                console.log(generated);
                 var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                console.log(score);
                 $.ajax({
                     url: dictionaryURL,
                     method: "GET"
                 }).then(function (response) {
-                    $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+                    
+                    console.log(response[0]);
 
-                    $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
-                    sound = response[0].hwi.prs[0].sound.audio
-                    firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+                    //if the length of the response is less than or equal to zero OR the user input doesn't equal the 1st value in array
+                    if(response.length <= 0 || userInput !== response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                        $("#wrong-answer-dict").modal("toggle");
 
-                    $("#definition").text(response[0].shortdef[0]);
+                    }else if(userInput.toLowerCase() === response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                        console.log(userInput);
+                        console.log(response[0].hwi.hw.replace("*", "").toLowerCase());
+                        
+                        console.log("you picked a word in the dictionary");
+
+                        //Giphy API
+                        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
+                        $.ajax({
+                            url: queryURL,
+                            method: "GET"
+                        }).then(function (response) {
+                            $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
+                        });
+
+                        //Dictionary API
+                        var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                        $.ajax({
+                            url: dictionaryURL,
+                            method: "GET"
+                        }).then(function (response) {
+                            $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+    
+                            $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                            sound = response[0].hwi.prs[0].sound.audio
+                            firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+    
+                            $("#definition").text(response[0].shortdef[0]);
+                        });
+                    };     
                 });
 
-            } else if(userFirstLetter !== generated){
+              //if the 1st letter in the users input doesn't match the first letter for the generated word
+            } else{
+                //show try again modal 
                 $("#wrong-answer-random").modal("toggle");
-
             };
         });
 
     };//end of randomLetterClick function
 
+    
+
     $("#submit").on("click", function (event) {
         event.preventDefault();
         var userInput = $("#user-word").val().toLowerCase();
         if (userInput.charAt(0) === userClick) {
+
+            //IF USER INPUT IS IN THE DICTIONARY, PRINT TO SCREEN, IF NOT, THROW MODAL ERROR
+
+
+            var user = firebase.auth().currentUser;
+            var score;
+                
+            // call firebase for stored score
+            var updatedCounter = firebase.database().ref(user.displayName + "/");
+            updatedCounter.on("value", function(snapshot){
+                score = snapshot.val().score
+            })
+            // increment score by 1 every time conditional is met
+            score++
+            database.ref(user.displayName + "/").update({
+                score: score
+            })
+
             //Giphy API
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + ">");
+                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + " class='gif-img'>");
             });
 
             //Dictionary API
@@ -222,25 +288,10 @@ $(".pronunciation-sound").on("click", function () {
     audio.play();
 });
 
-
-// Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyAJ3uxOWIFQT98C8tXQ3DY8SgvQSfkXWKY",
-    authDomain: "alphabet-game-b55ff.firebaseapp.com",
-    databaseURL: "https://alphabet-game-b55ff.firebaseio.com",
-    projectId: "alphabet-game-b55ff",
-    storageBucket: "",
-    messagingSenderId: "95198064143",
-    appId: "1:95198064143:web:cd1469f6b2050c2b"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
-
 firebase.auth().onAuthStateChanged(function (user) {
 
     if (user) {
-
+        defaultProfilePic();
         $("#hidden").attr("class", "d-block")
         $("#login").attr("class", "container d-none")
         var user = firebase.auth().currentUser;
@@ -252,25 +303,33 @@ firebase.auth().onAuthStateChanged(function (user) {
             //on submitting the user name 
             $("#submit-name").on("click", function () {
                 var name = $("#name").val();
-                score = 0;
+                // score = 0;
                 //submit to firebase 
                 user.updateProfile({
                     displayName: name,
-                    score: score
                 }).then(function(){
                     //profile sucessfully updated 
                     console.log("sucessful profile update");
+                    // update modal with user displayname
+                    $(".modal-title-profile").text(user.displayName + "'s Profile" )
+                    $("#user-name").text(user.displayName);
+                    // set score to 0 after displayname is chosen
+                    database.ref(user.displayName + "/").set({
+                        score: 0
+                    })
+                    var updatedCounter = firebase.database().ref(user.displayName + "/");
+                    updatedCounter.on("value", function(snapshot){
+                        console.log(snapshot.val());
+                        $("#user-ranking").text(snapshot.val().score)
+                    });
                 },function(error){
                     //an error happened 
                 });
-
                 //toggles the modal off 
                 $("#name-modal").modal("toggle");
 
             });
         }
-        console.log(user.displayName);
-        console.log(user.score);
         
     } else {
         $("#hidden").attr("class", "d-none")
@@ -305,22 +364,26 @@ function signUp() {
         $(".error-message").html(errorMessage)
     });
     //when a new user signs up. update their profile with a score of 0 !!! 
-
 };
 
 
-
+leaderBoard();
 function leaderBoard() {
+    database.ref().on("value", function(snapshot){
+        // $(".leaderboard").empty();
+        console.log(snapshot);
+    })
+
+
+    $("#view-lb").on("click", function(){
+        $("#profile-modal").modal("toggle");
+        $("#leaderboard-modal").modal("toggle");
+
+    });
     //display leader board with the username and the rank of highscores 
     //create table with user highscores 
 
 };
-
-
-
-
-//});
-
 // on click show modal w/ user info
 firebase.auth().onAuthStateChanged(function (user) {
     $("#profilebtn").click(function(){
@@ -330,5 +393,78 @@ firebase.auth().onAuthStateChanged(function (user) {
     $(".modal-title-profile").text(user.displayName + "'s Profile" )
     $("#user-name").text(user.displayName);
     $("#user-email").text(user.email);
-    $("#user-ranking").text("still have to do");
+    // call stored score to update profile
+    var updatedCounter = firebase.database().ref(user.displayName + "/");
+    updatedCounter.on("value", function(snapshot){
+        console.log(snapshot.val());
+        $("#user-ranking").text(snapshot.val().score)
+    })
+
+
 })
+
+
+var updateFile = $(".custom-file-label")
+var browseButton = $(".custom-file-input")
+
+
+var file;
+var task;
+
+
+
+// image variables
+var storageRef;
+var imagesRef;
+var fileName;
+var spaceRef;
+var grabImage;
+var urlName;
+
+
+
+
+browseButton.change(function(e){
+    urlName = browseButton.val().match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]
+    updateFile.text(urlName)
+    console.log(urlName);
+    $("#upload-button").click(function(){
+    // get current user
+    user = firebase.auth().currentUser;
+    // get file
+    file = e.target.files[0];
+    // create storage ref
+    storageRef = firebase.storage().ref(user.displayName + '/profile_picture/' + file.name)
+    // Upload file
+    task = storageRef.put(file);
+    console.log(task);
+    uploadProfilePic();
+
+    })
+});
+
+
+function defaultProfilePic(){
+    var storageRef = firebase.storage().ref();
+    var imagesRef = storageRef.child("profile_picture/");
+    var fileName = "placeholderprofileimage.png";
+    var spaceRef = imagesRef.child(fileName);
+    var grabImage = storageRef.child("defaultImage/" + spaceRef.location.path)
+
+    grabImage.getDownloadURL().then(function(url){
+        $("#profile-picture").attr("src", url);
+        $("#mini-profile-pic").attr("src", url)
+    })   
+};
+
+function uploadProfilePic(){
+    storageRef = firebase.storage().ref();
+    imagesRef = storageRef.child("profile_picture/");
+    fileName = urlName;
+    spaceRef = imagesRef.child(fileName);
+    grabImage = storageRef.child(user.displayName + "/" + spaceRef.location.path);
+    grabImage.getDownloadURL().then(function(url){
+        $("#profile-picture").attr("src", url)
+        $("#mini-profile-pic").attr("src", url)
+    })   
+}
