@@ -23,7 +23,7 @@ var u =["unicorn", "urchin", "umbrella", "university", "utensil", "uganda", "udd
 var v =["vulture", "vinegar", "vase", "video", "volcano", "vegetable", "valentine", "vulture", "valet", "vaccine"];
 var w =["walrus", "weasel", "water", "wax", "wig", "walrus", "wagon", "waffles", "wheel", "web"];
 var x =["xylophone"]; // having trouble finding any letters that start with "X" that work with what we're doing
-var y =["yarn", "yacht", "yuppie", "yolk", "yoga", "yard", "yam", "yarn", "year", "yield"];
+var y =["yarn", "yacht", "yuppie", "yolk", "yoga", "yard", "yam", "yarn", "year"];
 var z =["zebra", "zero", "zipper", "zinnia", "zucchini", "zither","zig-zag", "zephyr"];
 var alphabet = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z];
 var random;
@@ -65,7 +65,7 @@ $("body").on("click", ".letter", function () {
         randomLetterClick();
 
         //giphy API
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + randomtext + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=5";
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -94,7 +94,7 @@ $("body").on("click", ".letter", function () {
         var userClickUpper = userClick.toUpperCase();
         var inputDiv = `<h5>Write a word that starts with ${userClickUpper}</h5>
                         <input type="text" class="form-control user-inputbox" id='user-word'><br>
-                        <button class="btn btn-info" id='submit'>Go!</button>`;
+                        <button class="btn btn-primary" id='submit'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
     };
@@ -105,7 +105,7 @@ $("body").on("click", ".letter", function () {
             var currentWord = alphabet[i];
             random = currentWord[Math.floor(Math.random() * currentWord.length)];
             $("#bigletter").html(userClick.toUpperCase() + random.substr(1));
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + random + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=5";
 
             $.ajax({
                 url: queryURL,
@@ -141,11 +141,11 @@ $("body").on("click", ".letter", function () {
 
         var inputDiv = `<h5>Write a word that starts with ${generated}</h5>
                             <input type="text" class="form-control user-inputbox" id='user-word'><br>
-                            <button class="btn btn-info" id='submit-random'>Go!</button>`;
+                            <button class="btn btn-primary" id='submit-random'>Go!</button>`;
 
         $('#user-input-div').html(inputDiv);
 
-        //when user submits personal input 
+        //when user submits personal input after selecting random button 
         $("#submit-random").on("click", function (event) {
             event.preventDefault();
             var userInput = $("#user-word").val();
@@ -153,19 +153,7 @@ $("body").on("click", ".letter", function () {
             let userFirstLetter = userInput.charAt(0).toUpperCase();
             //if the 1st letter in the users input matches the first letter for the generated word
             if(userFirstLetter === generated) {
-                var user = firebase.auth().currentUser;
-                var score;
-                // call firebase for stored score
-                var updatedCounter = firebase.database().ref(user.displayName + "/");
-                updatedCounter.on("value", function(snapshot){
-                    console.log(snapshot.val());
-                    score = snapshot.val().score
-                });
-                // increment score by 1 every time conditional is met
-                score++
-                database.ref(user.displayName + "/").update({
-                    score: score
-                })
+
                 console.log(userFirstLetter);
                 console.log(generated);
                 var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
@@ -188,7 +176,7 @@ $("body").on("click", ".letter", function () {
                         console.log("you picked a word in the dictionary");
 
                         //Giphy API
-                        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
+                        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=5";
                         $.ajax({
                             url: queryURL,
                             method: "GET"
@@ -213,7 +201,21 @@ $("body").on("click", ".letter", function () {
                     };     
                 });
 
-              //if the 1st letter in the users input doesn't match the first letter for the generated word
+
+                var user = firebase.auth().currentUser;
+                var score;
+                // call firebase for stored score
+                var updatedCounter = firebase.database().ref(user.displayName + "/");
+                updatedCounter.on("value", function(snapshot){
+                    console.log(snapshot.val());
+                    score = snapshot.val().score
+                });
+                // increment score by 1 every time conditional is met
+                score++
+                database.ref(user.displayName + "/").update({
+                    score: score
+                })
+
             } else{
                 //show try again modal 
                 $("#wrong-answer-random").modal("toggle");
@@ -229,46 +231,67 @@ $("body").on("click", ".letter", function () {
         var userInput = $("#user-word").val().toLowerCase();
         if (userInput.charAt(0) === userClick) {
 
-            //IF USER INPUT IS IN THE DICTIONARY, PRINT TO SCREEN, IF NOT, THROW MODAL ERROR
+            console.log(userInput);
+            console.log(userClick);
+            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+            console.log(score);
+            $.ajax({
+                url: dictionaryURL,
+                method: "GET"
+            }).then(function (response) {
+                
+                console.log(response[0]);
+
+                //if the length of the response is less than or equal to zero OR the user input doesn't equal the 1st value in array
+                if(response.length <= 0 || userInput !== response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                    $("#wrong-answer-dict").modal("toggle");
+
+                }else if(userInput.toLowerCase() === response[0].hwi.hw.toLowerCase().replace("*", "").replace("*", "").replace("*", "")){
+                    console.log(userInput);
+                    console.log(response[0].hwi.hw.replace("*", "").toLowerCase());
+                    
+                    console.log("you picked a word in the dictionary");
+
+                    //Giphy API
+                    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=5";
+                    $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    }).then(function (response) {
+                        $("#player").html("<img class='gif-img' src=" + response.data[0].images.fixed_height.url + ">");
+                    });
+
+                    //Dictionary API
+                    var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
+                    $.ajax({
+                        url: dictionaryURL,
+                        method: "GET"
+                    }).then(function (response) {
+                        $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
+
+                        $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
+                        sound = response[0].hwi.prs[0].sound.audio
+                        firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
+
+                        $("#definition").text(response[0].shortdef[0]);
+                    });
+                };     
+            });
 
 
             var user = firebase.auth().currentUser;
             var score;
-                
             // call firebase for stored score
             var updatedCounter = firebase.database().ref(user.displayName + "/");
             updatedCounter.on("value", function(snapshot){
+                console.log(snapshot.val());
                 score = snapshot.val().score
-            })
+            });
             // increment score by 1 every time conditional is met
             score++
             database.ref(user.displayName + "/").update({
                 score: score
             })
-
-            //Giphy API
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=gqvHLyAWvH6hlE0ZWRLyC37I67jzXvC7&rating=g&limit=1";
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function (response) {
-                $("#player").html("<img src=" + response.data[0].images.fixed_height.url + " class='gif-img'>");
-            });
-
-            //Dictionary API
-            var dictionaryURL = "https://dictionaryapi.com/api/v3/references/sd2/json/" + userInput + "?key=01c631d7-9638-42b7-adbe-8337d0e10bd4";
-            $.ajax({
-                url: dictionaryURL,
-                method: "GET"
-            }).then(function (response) {
-                $("#bigletter").html(userInput.charAt(0).toUpperCase() + userInput.substr(1));
-
-                $("#pronunciation").text("Pronunciation: " + response[0].hwi.prs[0].mw);
-                sound = response[0].hwi.prs[0].sound.audio
-                firstCharInSound = response[0].hwi.prs[0].sound.audio.charAt(0);
-
-                $("#definition").text(response[0].shortdef[0]);
-            });
 
 
         } else {
@@ -293,6 +316,8 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         defaultProfilePic();
         $("#hidden").attr("class", "d-block")
+        $("#right").css("display", "block");
+        $("#left").css("display", "block");
         $("#login").attr("class", "container d-none")
         var user = firebase.auth().currentUser;
         //IF NO USER NAME in database, prompt with this modal
@@ -351,6 +376,8 @@ function login() {
 };
 
 function logOut() {
+    $("#right").css("display", "none");
+    $("#left").css("display", "none");
     firebase.auth().signOut();
 
 };
@@ -395,7 +422,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     // call stored score to update profile
     var updatedCounter = firebase.database().ref(user.displayName + "/");
     updatedCounter.on("value", function(snapshot){
-        console.log(snapshot.val());
+        console.log(firebase.database().ref(user.displayName + "/"));
         $("#user-ranking").text(snapshot.val().score)
     })
 
