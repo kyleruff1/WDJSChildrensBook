@@ -394,22 +394,29 @@ function signUp() {
 };
 
 
+//still Need this to work.
+//display leader board with the username and the rank of highscores 
 leaderBoard();
 function leaderBoard() {
     $("#view-lb").on("click", function(){
         $("#profile-modal").modal("toggle");
         $("#leaderboard-modal").modal("toggle");
 
+        var database = firebase.database(firebase.database().ref(user.displayName + "/"));
         database.ref().on("value", function(snapshot){
-            // $(".leaderboard").empty();
-            console.log(snapshot);
-        })
+            snapshot.forEach(function(childSnapshot){
+                var childData = childSnapshot.val();
+                console.log(childData);
+                //append to table with user highscores 
+            })
+        });
 
     });
-    //display leader board with the username and the rank of highscores 
-    //create table with user highscores 
+    
+
 
 };
+
 // on click show modal w/ user info
 firebase.auth().onAuthStateChanged(function (user) {
     $("#profilebtn").click(function(){
@@ -419,9 +426,13 @@ firebase.auth().onAuthStateChanged(function (user) {
     $(".modal-title-profile").text(user.displayName + "'s Profile" )
     $("#user-name").text(user.displayName);
     $("#user-email").text(user.email);
-    // call stored score to update profile
+
+
+    // call stored score to update profile ->SOMETHING IS UP WITH THIS
     var updatedCounter = firebase.database().ref(user.displayName + "/");
     updatedCounter.on("value", function(snapshot){
+        //score is undefined 
+        console.log(snapshot.val().score);
         console.log(firebase.database().ref(user.displayName + "/"));
         $("#user-ranking").text(snapshot.val().score)
     })
@@ -469,7 +480,7 @@ browseButton.change(function(e){
     })
 });
 
-
+//stores a default profile picture
 function defaultProfilePic(){
     var storageRef = firebase.storage().ref();
     var imagesRef = storageRef.child("profile_picture/");
@@ -483,6 +494,7 @@ function defaultProfilePic(){
     })   
 };
 
+//inserts the uploaded profile picture 
 function uploadProfilePic(){
     storageRef = firebase.storage().ref();
     imagesRef = storageRef.child("profile_picture/");

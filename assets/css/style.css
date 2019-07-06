@@ -1,5 +1,4 @@
 body{ 
-    background-image: url(/assets/images/body-back.png);
     background-size: auto;
     height: auto;
     background-image: url(../images/geometry.png);
@@ -18,12 +17,9 @@ body{
     background-image: url(/assets/images/jumboback.jpg);
     background-position: top;
     background-size: 100%;
-    color: rgb(80, 83, 255);
     text-shadow: 2px 2px white;
     font-family: aclonica, sans-serif;
     color: coral;
-    text-shadow: 2px 2px white;
-    font-family: aclonica, sans-serif;
     /* height: 340px; */
 }
 .container {
