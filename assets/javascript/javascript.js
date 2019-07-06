@@ -220,6 +220,7 @@ $("body").on("click", ".letter", function () {
                 //show try again modal 
                 $("#wrong-answer-random").modal("toggle");
             };
+            $('#user-word').empty();
         });
 
     };//end of randomLetterClick function
@@ -298,6 +299,7 @@ $("body").on("click", ".letter", function () {
             //TRY AGAIN MODAL HERE
             $("#wrong-answer").modal("toggle");
         };
+        $('#user-word').empty();
     });
 
 
