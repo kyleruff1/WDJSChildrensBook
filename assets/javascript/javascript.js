@@ -404,11 +404,15 @@ function leaderBoard() {
         $("#profile-modal").modal("toggle");
         $("#leaderboard-modal").modal("toggle");
 
-        var database = firebase.database(firebase.database().ref(user.displayName + "/"));
+        var database = firebase.database();
         database.ref().on("value", function(snapshot){
             snapshot.forEach(function(childSnapshot){
                 var childData = childSnapshot.val();
                 console.log(childData);
+                var username = "Player Name"
+                var lbData = "<tr><td>" + username + 
+                "</td><td>" + childData.score + "</td></tr>";
+                $("tbody").append(lbData);
                 //append to table with user highscores 
             })
         });
