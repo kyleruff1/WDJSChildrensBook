@@ -369,15 +369,14 @@ function signUp() {
 
 leaderBoard();
 function leaderBoard() {
-    database.ref().on("value", function(snapshot){
-        // $(".leaderboard").empty();
-        console.log(snapshot);
-    })
-
-
     $("#view-lb").on("click", function(){
         $("#profile-modal").modal("toggle");
         $("#leaderboard-modal").modal("toggle");
+
+        database.ref().on("value", function(snapshot){
+            // $(".leaderboard").empty();
+            console.log(snapshot);
+        })
 
     });
     //display leader board with the username and the rank of highscores 
