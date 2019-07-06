@@ -405,7 +405,7 @@ function leaderBoard() {
         $("#leaderboard-modal").modal("toggle");
 
         var database = firebase.database();
-        database.ref().on("value", function(snapshot){
+        database.ref().once("value", function(snapshot){
             snapshot.forEach(function(childSnapshot){
                 var childData = childSnapshot.val();
                 console.log(childData);
