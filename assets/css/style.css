@@ -1,83 +1,253 @@
-.row {
-    margin: auto;
-    width: 70%;
-    padding: 10px;
-
+body{ 
+    background-size: auto;
+    height: auto;
+    background-image: url(../images/geometry.png);
+    height: 960px;
 }
 
-.col {
-    height: 100%;
+.row {
+    margin: 20px;
+    padding: 0px;
 }
 
 .jumbotron {
     margin: 0%;
+    position: relative;
     text-align: center;
-    background-image: url(../images/jacksons.jpg);
+    background-image: url(/assets/images/jumboback.jpg);
     background-position: top;
-    background-size: 79%;
-    color: coral;
+    background-size: 100%;
     text-shadow: 2px 2px white;
     font-family: aclonica, sans-serif;
-}
-.btn-toolbar {
-    width: 100%;
-    padding-left: 15%;
-    padding-right: 15%;
-    height: 300px;
-    text-shadow: 2px 2px white;
-    color: white;
-}
-
+    color: coral;
+    /* height: 340px; */
 }
 .container {
     text-align: center;
     width: 100%;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0); /* Black background with 0.5 opacity */
 
 }
-.btn-default:hover,.btn-default {
-    font-size: 700%;
-    text-shadow: 2px 2px white;
-
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
 }
+/* .alphabet-image:hover {
+    width: 45px;
+} */
+/* alphabet letters */
+.alphabet-image{
+    width: 35px;
+}
+
 .display-3  {
     margin-bottom: -100px;
-
 }
-
-#bigletter  {
-    font-family: fredericka-the-great, sans-serif;
-    font-weight: 400;
-    font-size: 200px;
-    margin: auto;
-    width: 70%;
-    padding: 10px;
-    text-shadow: 2px 2px white;
-
+/* right side stying */
+#right{
+    padding: 0px;
 }
-
-h1{
-    height: 100%;
-    font-size: 100%;
-
-}
-h3 {
-    margin: auto;
-    width: 70%;
-    padding: 10px;
-
-}
-img  {
-    width: 100%;
-    height: auto;
-}
-body{ 
-    background-image: linear-gradient(coral, black,coral);
-    height: 960px;
-}
+/* right side where words display */
 .wordside {
     height: auto;
 }
+
+/* big printed letter  */
+#bigletter {
+    font-family: fredericka-the-great, sans-serif;
+    font-weight: 400;
+    font-size: 80px;
+    margin: auto;
+    color: salmon;
+    text-shadow: 1px 1px darkred;
+    text-align: center;
+
+}
+
+/* written pronunciation */
+#pronunciation{
+    text-align: center;
+    padding-top: 5px;
+    /* text-shadow: 1px 1px white; */
+    font-size: 20px;
+    color: darkslategrey;
+}
+
+/* pronunciation headphone favicon */
+.pronunciation-sound  {
+    size: 300%;
+    text-align: center;
+}
+
+.pronunciation-sound:hover  {
+    cursor: pointer;
+}
+
+/* definition of word */
+#definition {
+    color: darkslategrey;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 1px 1px white;
+    font-family: aclonica, sans-serif;
+
+}
+/* user input div where input box is printed */
+#user-input-div{
+    text-align: center;
+}
+.user-inputbox{
+    margin: auto;
+    width: 60%;
+}
+/* "write a word that starts with _" and Modal Titles */
+h5 {
+    color: darkslategrey;
+    text-align: center;
+    text-shadow: 1px 1px white;
+    font-size: 20px;
+}
+/* left side  */
+/* #left{
+
+} */
+/* gif images */
+.gif-img{
+    padding-top: 50px;
+    padding-bottom: 20px;
+    display: block;
+    margin: auto;
+    width: 70%;
+}
+
+
+
 #logoutbtn {
     float: left;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: aclonica, sans-serif;
+    color:white;
+    background: linear-gradient(#FF416C, #FF4B2B);
+    border-color: #E82EB7;
+    border: none;
+}
+#profilebtn {
+    float: right;
+    font-family: aclonica, sans-serif;
+    background: linear-gradient(#FF416C, #FF4B2B);
+    border-color: #E82EB7;
+    color:white;
+}
+
+/* alphabet letter buttons */
+.letter  {
+    margin: 0px;
+    padding: 0;
+    height: 200%;
+    background-color: #d3effa;
+}
+#randomletter{
+    padding: 7px;
+    color:white;
+    background: linear-gradient(#FF416C, #FF4B2B);
+    border-color: #E82EB7;
+}
+
+.pronunciation-sound  {
+    font-size: auto;
+}
+/* login form */
+#login{
+    margin-top: 200px;
+}
+
+.form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+}
+
+.btn-primary {
+    background-color: coral;
+    background: linear-gradient(#FF416C, #FF4B2B);
+    border-color: #E82EB7;
+}
+
+
+label {
+    color:darkslategrey;
+}
+
+
+#submit {
+    background-color: coral
+
+}
+/* specific to modal titles */
+.modal-title{
+    color: darkslategrey;
+    text-shadow: none;
+}
+.modal-body{
+    margin: auto;
+}
+#name{
+    padding-left: 10px;
+}
+#signin-buttons{
+    float: left;
+}
+
+.btn    {
+    size: 200%;
+}
+
+#profilebtn {
+    background: linear-gradient(#FF416C, #FF4B2B);
+    border-color: #E82EB7;
+    float: right;
+    color: white;
+}
+
+h1 {
+    padding-top: 20px;
+    justify-content: center;
+}
+
+#player {
+    width: 100%;
+}
+
+.btn-danger {
+    font-family: aclonica, sans-serif;
+}
+
+.input-group-text:hover {
+    cursor: pointer;
+}
+/* profile pic styling */
+#profile-picture {
+    width: 60%;
+    height: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#mini-profile-pic{
+    margin-left: 5px;
+    width: 38px;
+    height: 38px;
+    float: right;
+    border-radius: 10px;
+}
+
+/* profile modal styling  */
+.profileheadings{
+    font-size: 24px;
+}
+.userdetails{
+    margin-left: 10px;
 }
